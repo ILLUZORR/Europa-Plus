@@ -1,0 +1,36 @@
+# <--- PRINCESS --->
+- type: entity
+  parent: BaseTerrorSpider
+  id: MobTerrorSpiderPrincess 
+  suffix: Princess
+  components:
+  - type: Spider
+#    webPrototype: SpiderWebTerrorReinforcered
+#    webAction: TerrorWebAction
+  - type: Sprite
+    sprite: _Europa/Mobs/Animals/TerrorSpiders/princess.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      185: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      130: 0.7
+      160: 0.5
+  - type: MeleeWeapon
+    attackRate: 0.75
+    damage:
+      types:
+        Slash: 12
+        Poison: 8
+  - type: TerrorPrincess
+  - type: ActionGrant
+    actions:
+    - ActionEggsLaying
+  - type: UserInterface
+    interfaces:
+      enum.EggsLayingUiKey.Key:
+        type: EggsLayingBui
+  - type: GuideHelp
+    guides:
+    - TerrorSpiderPrincess

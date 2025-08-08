@@ -1,0 +1,25 @@
+# <--- MOTHER --->
+- type: entity
+  parent: BaseTerrorSpider
+  id: MobTerrorSpiderMother 
+  suffix: Mother
+  components:
+  - type: Sprite
+    sprite: _Europa/Mobs/Animals/TerrorSpiders/mother.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      220: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      160: 0.7
+      190: 0.5
+  - type: MeleeWeapon
+    attackRate: 0.75
+    damage:
+      types:
+        Slash: 15
+        Poison: 8
+  - type: GuideHelp
+    guides:
+    - TerrorSpiderMother

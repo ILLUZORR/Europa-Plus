@@ -1,0 +1,38 @@
+# <--- QUEEN --->
+- type: entity
+  parent: BaseTerrorSpider
+  id: MobTerrorSpiderQueen 
+  suffix: Queen
+  components:
+  - type: Spider
+#    webPrototype: SpiderWebTerrorReinforcered
+#    webAction: TerrorWebAction
+  - type: MobPrice
+    price: 9000
+  - type: Sprite
+    sprite: _Europa/Mobs/Animals/TerrorSpiders/queen.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      340: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      220: 0.7
+      285: 0.5
+  - type: MeleeWeapon
+    attackRate: 0.75
+    damage:
+      types:
+        Slash: 22
+        Poison: 10
+  - type: TerrorPrincess
+  - type: ActionGrant
+    actions:
+    - ActionEggsLaying
+  - type: UserInterface
+    interfaces:
+      enum.EggsLayingUiKey.Key:
+        type: EggsLayingBui
+  - type: GuideHelp
+    guides:
+    - TerrorSpiderQueen

@@ -1,0 +1,41 @@
+# <--- HEALER --->
+- type: entity
+  parent: BaseTerrorSpider
+  id: MobTerrorSpiderHealer
+  suffix: Healer
+  components:
+  - type: Sprite
+    sprite: _Europa/Mobs/Animals/TerrorSpiders/healer.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      100: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      75: 0.7
+      85: 0.5
+  - type: InjectableSolution
+    solution: chemicals
+  - type: SolutionRegeneration
+    solution: chemicals
+    generated:
+      reagents:
+      - ReagentId: Omnizine
+        Quantity: 0.25
+  - type: RefillableSolution
+    solution: chemicals
+  - type: Metabolizer
+    solutionOnBody: false
+    updateFrequency: 3.5
+    metabolizerTypes: [ Human ]
+    groups:
+      - id: Medicine
+  - type: MeleeWeapon
+    attackRate: 0.75
+    damage:
+      types:
+        Slash: 12
+        Poison: 4
+  - type: GuideHelp
+    guides:
+    - TerrorSpiderHealer

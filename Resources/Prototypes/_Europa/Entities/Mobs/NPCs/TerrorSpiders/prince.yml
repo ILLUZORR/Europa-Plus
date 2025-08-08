@@ -1,0 +1,25 @@
+# <--- PRINCE --->
+- type: entity
+  parent: BaseTerrorSpider
+  id: MobTerrorSpiderPrince
+  suffix: Prince
+  components:
+  - type: Sprite
+    sprite: _Europa/Mobs/Animals/TerrorSpiders/prince.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      500: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      200: 0.7
+      350: 0.5
+  - type: MeleeWeapon
+    attackRate: 0.75
+    damage:
+      types:
+        Slash: 32
+        Poison: 12
+  - type: GuideHelp
+    guides:
+    - TerrorSpiderPrince

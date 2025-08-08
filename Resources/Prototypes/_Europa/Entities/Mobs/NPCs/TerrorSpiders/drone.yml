@@ -1,0 +1,28 @@
+# <--- DRONE --->
+- type: entity
+  parent: BaseTerrorSpider
+  id: MobTerrorSpiderDrone 
+  suffix: Drone
+  components:
+  - type: Spider
+#    webPrototype: SpiderWebTerrorReinforcered
+#    webAction: TerrorWebAction
+  - type: Sprite
+    sprite: _Europa/Mobs/Animals/TerrorSpiders/drone.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      100: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      65: 0.7
+      80: 0.5
+  - type: MeleeWeapon
+    attackRate: 0.80
+    damage:
+      types:
+        Slash: 10
+        Poison: 4
+  - type: GuideHelp
+    guides:
+    - TerrorSpiderDrone

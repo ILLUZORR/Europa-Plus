@@ -1,0 +1,26 @@
+# <--- DESTROYER --->
+- type: entity
+  parent: BaseTerrorSpider
+  id: MobTerrorSpiderDestroyer 
+  suffix: Destroyer
+  components:
+  - type: Sprite
+    sprite: _Europa/Mobs/Animals/TerrorSpiders/destroyer.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      120: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      70: 0.7
+      90: 0.5
+  - type: MeleeWeapon
+    attackRate: 0.75
+    damage:
+      types:
+        Slash: 15
+        Poison: 8
+        Structural: 70
+  - type: GuideHelp
+    guides:
+    - TerrorSpiderDestroyer

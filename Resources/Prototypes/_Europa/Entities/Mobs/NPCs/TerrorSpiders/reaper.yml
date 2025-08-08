@@ -1,0 +1,25 @@
+# <--- REAPER --->
+- type: entity
+  parent: BaseTerrorSpider
+  id: MobTerrorSpiderReaper 
+  suffix: Reaper
+  components:
+  - type: Sprite
+    sprite: _Europa/Mobs/Animals/TerrorSpiders/reaper.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      130: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      70: 0.7
+      90: 0.5
+  - type: MeleeWeapon
+    attackRate: 0.75
+    damage:
+      types:
+        Slash: 22
+        Poison: 4
+  - type: GuideHelp
+    guides:
+    - TerrorSpiderReaper

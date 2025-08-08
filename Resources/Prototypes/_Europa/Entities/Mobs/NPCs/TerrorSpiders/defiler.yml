@@ -1,0 +1,26 @@
+# <--- DEFILER --->
+- type: entity
+  parent: BaseTerrorSpider
+  id: MobTerrorSpiderDefiler 
+  suffix: Defiler
+  components:
+  - type: Sprite
+    sprite: _Europa/Mobs/Animals/TerrorSpiders/defiler.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      200: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      140: 0.7
+      170: 0.5
+  - type: MeleeWeapon
+    attackRate: 0.85
+    damage:
+      types:
+        Poison: 1
+  - type: StaminaDamageOnHit
+    damage: 35
+  - type: GuideHelp
+    guides:
+    - TerrorSpiderDefiler

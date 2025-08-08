@@ -1,0 +1,25 @@
+# <--- GUARDIAN --->
+- type: entity
+  parent: BaseTerrorSpider
+  id: MobTerrorSpiderGuardian
+  suffix: Guardian
+  components:
+  - type: Sprite
+    sprite: _Europa/Mobs/Animals/TerrorSpiders/guardian.rsi
+  - type: MobThresholds
+    thresholds:
+      0: Alive
+      250: Dead
+  - type: SlowOnDamage
+    speedModifierThresholds:
+      170: 0.7
+      200: 0.5
+  - type: MeleeWeapon
+    attackRate: 0.75
+    damage:
+      types:
+        Slash: 15
+        Poison: 10
+  - type: GuideHelp
+    guides:
+    - TerrorSpiderGuardian
