@@ -10,7 +10,7 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared._Europa.Morph;
 
-[RegisterComponent, AutoGenerateComponentState, NetworkedComponent] //, AutoGenerateComponentState]
+[RegisterComponent, AutoGenerateComponentState, NetworkedComponent]
 public sealed partial class MorphComponent : Component
 {
     /// <summary>
@@ -98,6 +98,8 @@ public sealed partial class MorphComponent : Component
     /// </summary>
     [DataField("devourTime")]
     public float DevourTime = 3f;
+
+    public List<EntityUid> ContainedCreatures = new();
 
     /// <summary>
     /// вайтлист на обед

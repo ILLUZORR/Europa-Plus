@@ -34,6 +34,8 @@ using Content.Shared.Movement.Events;
 using Content.Shared.Movement.Components;
 using Content.Shared.Standing;
 using Content.Server.Body.Components;
+using Robust.Server.GameObjects;
+using Robust.Shared.Map;
 
 namespace Content.Server._Europa.Morph;
 
@@ -59,6 +61,7 @@ public sealed class MorphSystem : SharedMorphSystem
     [Dependency] private readonly StunSystem _stun = default!;
     [Dependency] private readonly WeldableSystem _weldable = default!;
     [Dependency] private readonly StandingStateSystem _standing = default!;
+    [Dependency] private readonly TransformSystem _transform = default!;
 
     public ProtoId<DamageGroupPrototype> BruteDamageGroup = "Brute";
     public ProtoId<DamageGroupPrototype> BurnDamageGroup = "Burn";
@@ -90,6 +93,11 @@ public sealed class MorphSystem : SharedMorphSystem
 
     private void OnDestroy(EntityUid uid, MorphComponent component, ref BeingGibbedEvent args)
     {
+        foreach (var entity in component.ContainedCreatures)
+        {
+            var transform = Transform(uid);
+            _transform.SetCoordinates(entity, transform.Coordinates);
+        }
         container.EmptyContainer(component.Container);
     }
     private void OnInit(EntityUid uid, MorphComponent component, MapInitEvent args)
@@ -379,7 +387,8 @@ public sealed class MorphSystem : SharedMorphSystem
             health = -component.EatWeaponHungerReq;
             _hunger.ModifyHunger(uid, (float)health.Value, hunger);
             _audioSystem.PlayPvs(component.SoundDevour, uid);
-            container.Insert(args.Target.Value, component.Container);
+            _transform.SetCoordinates(args.Target.Value, new EntityCoordinates(args.Target.Value, MapCoordinates.Nullspace.Position));
+            component.ContainedCreatures.Add(args.Target.Value);
             return;
         }
 
