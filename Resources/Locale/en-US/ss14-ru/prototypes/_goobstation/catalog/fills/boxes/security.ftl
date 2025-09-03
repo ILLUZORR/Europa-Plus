@@ -1,0 +1,12 @@
+ent-BoxTracker = tracker box
+    .desc = A box containing a couple trackers.
+ent-BoxLethalInjection = lethal injections box
+    .desc = A box containing several lethal injection syringes.
+ent-BoxGrenadesBaton = 40mm baton grenade box
+    .desc = A box containing eight 40mm baton grenades for single target stunning.
+ent-BoxGrenadesFlash = 40mm flash grenade box
+    .desc = A box containing eight 40mm flashbang grenades for mass target stunning.
+ent-BoxGrenadesTeargas = 40mm tear gas grenade box
+    .desc = A box containing eight 40mm tear gas grenades for efficient riot dispersion.
+ent-BoxGrenadesMixedShot = 40mm mixed shot box
+    .desc = A box containing three 40mm beanbag shots, and one 40mm slug.

@@ -42,16 +42,13 @@
 using Content.Server.NPC.Components;
 using Content.Server.NPC.HTN;
 using Content.Shared.Actions;
-using Robust.Shared.Random;
 using Robust.Shared.Timing;
 
 namespace Content.Server.NPC.Systems;
 
 public sealed class NPCUseActionOnTargetSystem : EntitySystem
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
     [Dependency] private readonly SharedActionsSystem _actions = default!;
-    [Dependency] private readonly IRobustRandom _random = default!; // Europa
 
     /// <inheritdoc/>
     public override void Initialize()
@@ -63,41 +60,24 @@ public sealed class NPCUseActionOnTargetSystem : EntitySystem
 
     private void OnMapInit(Entity<NPCUseActionOnTargetComponent> ent, ref MapInitEvent args)
     {
-        // Europa-Start
-        foreach (var actionProtoId in ent.Comp.ActionId)
-        {
-            var actionEnt = _actions.AddAction(ent.Owner, actionProtoId);
-            if (actionEnt == null || !actionEnt.HasValue)
-                continue;
-
-            ent.Comp.ActionEntities.Add(actionEnt.Value);
-        }
-        // Europa-End
+        ent.Comp.ActionEnt = _actions.AddAction(ent, ent.Comp.ActionId);
     }
 
-    public bool TryUseTentacleAttack(Entity<NPCUseActionOnTargetComponent?> user, EntityUid target, List<EntityUid> actionEntities) // Europa-Edit | Added List
+    public bool TryUseTentacleAttack(Entity<NPCUseActionOnTargetComponent?> user, EntityUid target)
     {
-        var actionEnt = _random.Pick(actionEntities); // Europa
-
         if (!Resolve(user, ref user.Comp, false))
             return false;
 
-        if (!TryComp<EntityWorldTargetActionComponent>(actionEnt, out var action)) // Europa
+        if (_actions.GetAction(user.Comp.ActionEnt) is not {} action)
             return false;
 
         if (!_actions.ValidAction(action))
             return false;
 
-        if (action.Event != null)
-            action.Event.Coords = Transform(target).Coordinates;
+        _actions.SetEventTarget(action, target);
 
-        _actions.PerformAction(user,
-            null,
-            actionEnt, // Europa-Edit
-            action,
-            action.BaseEvent,
-            _timing.CurTime,
-            false);
+        // NPC is serverside, no prediction :(
+        _actions.PerformAction(user.Owner, action, predicted: false);
         return true;
     }
 
@@ -112,7 +92,7 @@ public sealed class NPCUseActionOnTargetSystem : EntitySystem
             if (!htn.Blackboard.TryGetValue<EntityUid>(comp.TargetKey, out var target, EntityManager))
                 continue;
 
-            TryUseTentacleAttack(uid, target, comp.ActionEntities); // Europa-Edit
+            TryUseTentacleAttack((uid, comp), target);
         }
     }
 }

@@ -22,13 +22,21 @@ using System.Linq;
 using Content.Goobstation.Shared.CrewMonitoring;
 using Content.Server.DeviceNetwork;
 using Content.Server.DeviceNetwork.Systems;
+using Content.Server.Jittering;
 using Content.Server.PowerCell;
+using Content.Server.Storage.Components;
 using Content.Shared.DeviceNetwork;
 using Content.Shared.DeviceNetwork.Events;
+using Content.Shared.Jittering;
 using Content.Shared.Medical.CrewMonitoring;
 using Content.Shared.Medical.SuitSensor;
+using Content.Shared.Morgue.Components;
 using Content.Shared.Pinpointer;
+using Robust.Server.Audio;
+using Robust.Server.Containers;
 using Robust.Server.GameObjects;
+using Robust.Shared.Audio;
+using Robust.Shared.Timing;
 
 namespace Content.Server.Medical.CrewMonitoring;
 
@@ -36,6 +44,13 @@ public sealed class CrewMonitoringConsoleSystem : EntitySystem
 {
     [Dependency] private readonly PowerCellSystem _cell = default!;
     [Dependency] private readonly UserInterfaceSystem _uiSystem = default!;
+    // Europa-Start
+    [Dependency] private readonly AudioSystem _audio = default!;
+    [Dependency] private readonly IGameTiming _gameTiming = default!;
+    [Dependency] private readonly JitteringSystem _jitter = default!;
+    [Dependency] private readonly SharedPointLightSystem _light = default!;
+    [Dependency] private readonly ContainerSystem _containerSystem = default!;
+    // Europa-End
 
     public override void Initialize()
     {
@@ -44,6 +59,97 @@ public sealed class CrewMonitoringConsoleSystem : EntitySystem
         SubscribeLocalEvent<CrewMonitoringConsoleComponent, DeviceNetworkPacketEvent>(OnPacketReceived);
         SubscribeLocalEvent<CrewMonitoringConsoleComponent, BoundUIOpenedEvent>(OnUIOpened);
     }
+
+    // Europa-Start
+    public override void Update(float frameTime)
+    {
+        base.Update(frameTime);
+
+        foreach (var component in EntityQuery<CrewMonitoringConsoleComponent>(true))
+        {
+            if (!ShouldTriggerAlert(component))
+                continue;
+
+            var uid = component.Owner;
+            TriggerAlert(uid, component);
+        }
+    }
+
+    private bool ShouldTriggerAlert(CrewMonitoringConsoleComponent component)
+    {
+        return component.DoAlert && _gameTiming.CurTime >= component.NextAlertTime;
+    }
+
+    private void TriggerAlert(EntityUid uid, CrewMonitoringConsoleComponent component)
+    {
+        var audioParams = AudioParams.Default
+            .WithVolume(-2f)
+            .WithVariation(0.25f);
+
+        component.NextAlertTime = _gameTiming.CurTime + TimeSpan.FromSeconds(component.AlertTime);
+
+        if (HasUnsecuredCorpse(component))
+        {
+            if (TryComp(uid, out PointLightComponent? light))
+            {
+                component.NormalLightColor ??= light.Color;
+                component.NormalLightEnergy ??= light.Energy;
+                component.NormalLightRadius ??= light.Radius;
+
+                _light.SetColor(uid, Color.Red, light);
+                _light.SetEnergy(uid, 40, light);
+                _light.SetRadius(uid, 1.5f, light);
+            }
+
+            _audio.PlayPvs(component.AlertSound, uid, audioParams);
+            _jitter.AddJitter(uid, 10, 15);
+        }
+        else
+        {
+            if (TryComp(uid, out PointLightComponent? light))
+            {
+                if (component.NormalLightColor != null)
+                    _light.SetColor(uid, component.NormalLightColor.Value, light);
+                if (component.NormalLightEnergy != null)
+                    _light.SetEnergy(uid, component.NormalLightEnergy.Value, light);
+                if (component.NormalLightRadius != null)
+                    _light.SetRadius(uid, component.NormalLightRadius.Value, light);
+            }
+
+            RemCompDeferred<JitteringComponent>(uid);
+        }
+    }
+
+    private bool HasUnsecuredCorpse(CrewMonitoringConsoleComponent component)
+    {
+        return component.ConnectedSensors.Values
+            .Any(sensor =>
+            {
+                if (sensor.IsAlive)
+                    return false;
+
+                if (!TryGetEntity(sensor.OwnerUid, out var corpse) || Deleted(corpse))
+                    return false;
+
+                if (corpse is not { } nonNullCorpse)
+                    return false;
+
+                return !IsCorpseSecured(nonNullCorpse);
+            });
+    }
+
+    private bool IsCorpseSecured(EntityUid entity)
+    {
+        if (!_containerSystem.IsEntityInContainer(entity))
+            return false;
+
+        if (!_containerSystem.TryGetContainingContainer(entity, out var container))
+            return false;
+
+        var containerOwner = container.Owner;
+        return HasComp<MorgueComponent>(containerOwner);
+    }
+    // Europa-End
 
     private void OnRemove(EntityUid uid, CrewMonitoringConsoleComponent component, ComponentRemove args)
     {

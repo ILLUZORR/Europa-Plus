@@ -21,7 +21,7 @@ chat-manager-sender-announcement = Центральное командовани
 chat-manager-sender-announcement-wrap-message = [font size=14][bold]Объявление { $sender }:[/font][font size=12]
     { $message }[/bold][/font]
 chat-manager-entity-say-wrap-message = [BubbleHeader][bold][Name]{ $entityName }[/Name][/bold][/BubbleHeader] { $verb }, [font={ $fontType } size={ $fontSize } ]"[BubbleContent]{ $message }[/BubbleContent]"[/font]
-chat-manager-entity-say-bold-wrap-message = [BubbleHeader][bold][Name]{ $entityName }[/Name][/bold][/BubbleHeader] { $verb }, [font={ $fontType } size={ $fontSize }]"[BubbleContent][bold]{ $message }[/bold][/BubbleContent]"[/font]
+chat-manager-entity-say-bold-wrap-message = [BubbleHeader][bold][Name]{$entityName}[/Name][/bold][/BubbleHeader] {$verb}, [font={$fontType} size={$fontSize}]"[BubbleContent][font="{$fontType}" size={$fontSize}][bold][color={$color}]{$message}[/color][/bold][/font][/BubbleContent]"[/font]
 chat-manager-entity-whisper-wrap-message = [font size=11][italic][BubbleHeader][Name]{ $entityName }[/Name][/BubbleHeader] шепчет,"[BubbleContent]{ $message }[/BubbleContent]"[/italic][/font]
 chat-manager-entity-whisper-unknown-wrap-message = [font size=11][italic][BubbleHeader]Кто-то[/BubbleHeader] шепчет, "[BubbleContent]{ $message }[/BubbleContent]"[/italic][/font]
 chat-manager-entity-me-wrap-message = [italic]{ CAPITALIZE($entityName) } { $message }[/italic]
@@ -33,7 +33,6 @@ chat-manager-send-admin-dead-chat-wrap-message = { $adminChannelName }: [bold]([
 chat-manager-send-admin-chat-wrap-message = { $adminChannelName }: [bold]{ $playerName }:[/bold] { $message }
 chat-manager-send-admin-announcement-wrap-message = [bold]{ $adminChannelName }: { $message }[/bold]
 chat-manager-send-hook-ooc-wrap-message = OOC: [bold](D){ $senderName }:[/bold] { $message }
-chat-manager-send-hook-admin-wrap-message = АДМИН: [bold](D){ $senderName }:[/bold] { $message }
 chat-manager-dead-channel-name = МЁРТВЫЕ
 chat-manager-admin-channel-name = АДМИН
 chat-manager-rate-limited = Вы отправляете сообщения слишком быстро!
@@ -60,7 +59,7 @@ chat-speech-verb-name-arachnid = Арахнид
 chat-speech-verb-insect-1 = стрекочет
 chat-speech-verb-insect-2 = жужжит
 chat-speech-verb-insect-3 = щёлкает
-chat-speech-verb-name-moth = Ниан
+chat-speech-verb-name-moth = Моль
 chat-speech-verb-winged-1 = свистит
 chat-speech-verb-winged-2 = хлопает
 chat-speech-verb-winged-3 = клокочет
@@ -76,7 +75,7 @@ chat-speech-verb-name-robotic = Робот
 chat-speech-verb-robotic-1 = докладывает
 chat-speech-verb-robotic-2 = пищит
 chat-speech-verb-robotic-3 = информирует
-chat-speech-verb-name-reptilian = Унатх
+chat-speech-verb-name-reptilian = Ящер
 chat-speech-verb-reptilian-1 = шипит
 chat-speech-verb-reptilian-2 = фыркает
 chat-speech-verb-reptilian-3 = пыхтит
@@ -88,6 +87,8 @@ chat-speech-verb-name-canine = Собака
 chat-speech-verb-canine-1 = гавкает
 chat-speech-verb-canine-2 = лает
 chat-speech-verb-canine-3 = воет
+chat-speech-verb-skeleton-4 = клацкает
+chat-speech-verb-skeleton-5 = клацклацкает
 chat-speech-verb-name-vox = Вокс
 chat-speech-verb-vox-1 = скрипит
 chat-speech-verb-vox-2 = визжит
@@ -122,8 +123,3 @@ chat-speech-verb-name-electricity = Электричество
 chat-speech-verb-electricity-1 = трещит
 chat-speech-verb-electricity-2 = гудит
 chat-speech-verb-electricity-3 = скрипит
-chat-speech-verb-name-wawa = Вава
-chat-speech-verb-wawa-1 = произносит
-chat-speech-verb-wawa-2 = заявляет
-chat-speech-verb-wawa-3 = объявляет
-chat-speech-verb-wawa-4 = размышляет

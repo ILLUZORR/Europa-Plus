@@ -5,7 +5,7 @@
       "y":32
    },
    "license":"CC-BY-SA-3.0",
-   "copyright":"Taken from https://github.com/ParadiseSS13/Paradise/",
+   "copyright":"Taken from TauCetiStation | Edited by PuroSlavKing (Github)",
    "states":[
       {
          "name":"scrub_off"
@@ -15,15 +15,15 @@
       },
       {
          "name":"scrub_on",
-         "delays": [[0.1, 0.1, 0.1, 0.1, 0.1]]
+         "delays": [[0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]]
       },
       {
          "name": "scrub_purge",
-         "delays": [[0.1, 0.1, 0.1, 0.1, 0.1]]
+         "delays": [[0.1, 0.1, 0.1, 0.1, 0.1, 0.1]]
       },
       {
          "name": "scrub_wide",
-         "delays": [[0.1, 0.1, 0.1, 0.1, 0.1, 0.1]]
+         "delays": [[0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1, 0.1]]
       }
    ]
 }

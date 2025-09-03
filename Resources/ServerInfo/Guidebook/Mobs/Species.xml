@@ -4,15 +4,28 @@
   Нанотразен нанимает разнообразные разумные виды.
 
   <Box>
-  <GuideEntityEmbed Entity="MobArachnid" Caption="Арахнид"/>
-  <GuideEntityEmbed Entity="MobDiona" Caption="Диона"/>
-  <GuideEntityEmbed Entity="MobDwarf" Caption="Дворф"/>
-  <GuideEntityEmbed Entity="MobHuman" Caption="Человек"/>
+    <GuideEntityEmbed Entity="MobArachnid" Caption="Арахнид"/>
+    <GuideEntityEmbed Entity="MobDiona" Caption="Диона"/>
+    <GuideEntityEmbed Entity="MobDwarf" Caption="Дворф"/>
+    <GuideEntityEmbed Entity="MobGingerbread" Caption="Хлебоголовый"/>
+    <GuideEntityEmbed Entity="MobHarpy" Caption="Гарпия"/>
   </Box>
   <Box>
-  <GuideEntityEmbed Entity="MobMoth" Caption="Ниан"/>
-  <GuideEntityEmbed Entity="MobReptilian" Caption="Ящер"/>
-  <GuideEntityEmbed Entity="MobSlimePerson" Caption="Слаймолюд"/>
+    <GuideEntityEmbed Entity="MobHuman" Caption="Человек"/>
+    <GuideEntityEmbed Entity="MobIPCDummy" Caption="КПБ"/>
+    <GuideEntityEmbed Entity="MobMoth" Caption="Мотылёк"/>
+    <GuideEntityEmbed Entity="MobOni" Caption="Они"/>
+    <GuideEntityEmbed Entity="MobReptilian" Caption="Ящеролюд"/>
+    <GuideEntityEmbed Entity="MobResomi" Caption="Резоми"/>
+    <GuideEntityEmbed Entity="MobRodentia" Caption="Родентия"/>
+  </Box>
+  <Box>
+    <GuideEntityEmbed Entity="MobSlimePerson" Caption="Слаймолюд"/>
+    <GuideEntityEmbed Entity="MobTajaran" Caption="Таяр"/>
+    <GuideEntityEmbed Entity="MobVox" Caption="Вокс"/>
+    <GuideEntityEmbed Entity="MobVulpkanin" Caption="Вульпканин"/>
+    <GuideEntityEmbed Entity="MobYowie" Caption="Йови"/>
+    <GuideEntityEmbed Entity="MobChitinid" Caption="Хитинид"/>
   </Box>
 
 </Document>

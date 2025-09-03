@@ -148,7 +148,7 @@
         - HighImpassable
   - type: Sprite
     drawdepth: Overdoors
-    offset: "0.0,0.3"
+    offset: "0.0,0.25" # Europa-Edit | 0.3 > 0.25
     sprite: Structures/Furniture/potted_plants.rsi
     noRot: true
   - type: Speech
@@ -161,6 +161,10 @@
     containers:
       stash: !type:ContainerSlot {}
   - type: Pullable
+  - type: MultiHandedItem
+  - type: Item
+    sprite: Structures/Furniture/potted_plants.rsi
+    size: Huge
   - type: Damageable
     damageContainer: StructuralInorganic # The pot. Not the plant. Or is it plastic?
   - type: Destructible

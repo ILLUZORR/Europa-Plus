@@ -2,6 +2,7 @@
 # SPDX-FileCopyrightText: 2022 Rane <60792108+Elijahrane@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2023 eclips_e <67359748+Just-a-Unity-Dev@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2024 Adrian16199 <144424013+Adrian16199@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2024 VMSolidus <evilexecutive@gmail.com>
 # SPDX-FileCopyrightText: 2024 lzk <124214523+lzk228@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2025 BloodfiendishOperator <141253729+Diggy0@users.noreply.github.com>
@@ -24,13 +25,35 @@
   markingLimits: MobSlimeMarkingLimits
   dollPrototype: MobSlimePersonDummy
   skinColoration: Hues
+  # Europa-Start
+  category: Classic
+  description: "/ServerInfo/_Europa/SpeciesDescriptions/SlimePerson.xml"
+  pros:
+  - Получают на 40% меньше урона от ушибов и на 20% меньше от ядов.
+  - Способны прожить в условиях вакуума дольше чем человек.
+  - Обладают встроенным хранилищем внутри себя.
+  special:
+  - Быстрее пьянеют.
+  - Дышат реже человека в 5 раз, следовательно получают по 0.2 урона удушьем.
+  - Скорость метаболизма - 0.13 единиц. Это означает, что у них всё усваивается медленней, чем у человека.
+  - Дышат азотом (N2) и выдыхают его оксид (N2O).
+  - Слизь слаймолюда не восстанавливается железом. Тем не менее, слизь является умеренно питательным источником пищи для других существ, но пить кровь своих товарищей по команде обычно считается неприемлемым.
+  cons:
+  - Получают на 50% больше урона холодоми и на 20% больше от порезов и уколов.
+  - При контакте с водой получает 12 термического урона. Инъекции, питьё воды, хождение по лужам, вдыхание водяного пара - не наносят урон.
+  - Получают повышенный урон от давления.
+  # Europa-End
 
 - type: speciesBaseSprites
   id: MobSlimeSprites
   sprites:
+    Face: MobHumanoidAnyMarking
     Head: MobSlimeHead
+    HeadSide: MobHumanoidAnyMarking
     Hair: MobSlimeMarkingFollowSkin
     FacialHair: MobSlimeMarkingFollowSkin
+    Underwear: MobHumanoidAnyMarking
+    Undershirt: MobHumanoidAnyMarking
     Chest: MobSlimeChest
     Groin: MobSlimeGroin
     Eyes: MobHumanoidEyes
@@ -58,17 +81,41 @@
     Chest:
       points: 8
       required: false
-    Legs:
-      points: 10
+    Underwear:
+      points: 1
       required: false
-    Arms:
-      points: 10
+    Undershirt:
+      points: 1
+      required: false
+    RightLeg:
+      points: 2
+      required: false
+    RightFoot:
+      points: 2
+      required: false
+    LeftLeg:
+      points: 2
+      required: false
+    LeftFoot:
+      points: 2
+      required: false
+    RightArm:
+      points: 2
+      required: false
+    RightHand:
+      points: 2
+      required: false
+    LeftArm:
+      points: 2
+      required: false
+    LeftHand:
+      points: 2
       required: false
 
 - type: humanoidBaseSprite
   id: MobSlimeMarkingFollowSkin
   markingsMatchSkin: true
-  layerAlpha: 0.72
+  layerAlpha: 0.75
 
 - type: humanoidBaseSprite
   id: MobSlimeHead

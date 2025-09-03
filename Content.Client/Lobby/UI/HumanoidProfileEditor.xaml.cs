@@ -141,6 +141,7 @@
 // SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
 // SPDX-FileCopyrightText: 2025 Ignaz "Ian" Kraft <ignaz.k@live.de>
 // SPDX-FileCopyrightText: 2025 J <billsmith116@gmail.com>
+// SPDX-FileCopyrightText: 2025 MarkerWicker <markerWicker@proton.me>
 // SPDX-FileCopyrightText: 2025 Pieter-Jan Briers <pieterjan.briers+git@gmail.com>
 // SPDX-FileCopyrightText: 2025 Piras314 <p1r4s@proton.me>
 // SPDX-FileCopyrightText: 2025 SX-7 <92227810+SX-7@users.noreply.github.com>
@@ -155,6 +156,8 @@
 using System.IO;
 using System.Linq;
 using System.Numerics;
+using Content.Client._Europa.Lobby.UI;
+using Content.Client.Guidebook;
 using Content.Client.Humanoid;
 using Content.Client.Lobby.UI.Loadouts;
 using Content.Client.Lobby.UI.Roles;
@@ -185,7 +188,9 @@ using Robust.Client.Utility;
 using Robust.Shared.Configuration;
 using Robust.Shared.ContentPack;
 using Robust.Shared.Enums;
+using Robust.Shared.Physics;
 using Robust.Shared.Prototypes;
+using Robust.Shared.Physics.Systems;
 using Robust.Shared.Utility;
 using Direction = Robust.Shared.Maths.Direction;
 
@@ -194,6 +199,8 @@ namespace Content.Client.Lobby.UI
     [GenerateTypedNameReferences]
     public sealed partial class HumanoidProfileEditor : BoxContainer
     {
+        [Dependency] private readonly DocumentParsingManager _parsingMan = default!; // Europa
+
         private readonly IClientPreferencesManager _preferencesManager;
         private readonly IConfigurationManager _cfgManager;
         private readonly IEntityManager _entManager;
@@ -263,6 +270,8 @@ namespace Content.Client.Lobby.UI
         public event Action<List<ProtoId<GuideEntryPrototype>>>? OnOpenGuidebook;
 
         private ISawmill _sawmill;
+
+        private SpeciesWindow? _speciesWindow;  // Europa
 
         public HumanoidProfileEditor(
             IClientPreferencesManager preferencesManager,
@@ -384,7 +393,78 @@ namespace Content.Client.Lobby.UI
                 SetSpecies(_species[args.Id].ID);
                 UpdateHairPickers();
                 OnSkinColorOnValueChanged();
+                UpdateHeightWidthSliders(); // Goobstation: port EE height/width sliders
             };
+
+            // Europa-Start
+            NewSpeciesButton.OnToggled += args =>
+            {
+                if (Profile == null)
+                    return;
+
+                _speciesWindow?.Dispose();
+
+                if (!args.Pressed)
+                {
+                    _speciesWindow = null;
+                }
+                else
+                {
+                    _speciesWindow = new(
+                        Profile,
+                        prototypeManager,
+                        entManager,
+                        _controller,
+                        _resManager,
+                        _parsingMan);
+
+                    _speciesWindow.OpenCenteredLeft();
+                    var oldProfile = Profile.Clone();
+                    _speciesWindow.ChooseAction += args =>
+                    {
+                        SetSpecies(args);
+                        OnSkinColorOnValueChangedKeepColor(oldProfile);
+                        UpdateHairPickers();
+                        _speciesWindow?.Dispose();
+                        _speciesWindow = null;
+                        var name1 = _prototypeManager.Index(Profile?.Species ?? "Human").Name;
+                        NewSpeciesButton.Text = Loc.GetString(name1);
+                        NewSpeciesButton.Pressed = false;
+                    };
+                    _speciesWindow.OnClose += () =>
+                    {
+                        NewSpeciesButton.Pressed = false;
+                        _speciesWindow = null;
+                    };
+                }
+            };
+            // Europa-End
+
+            // begin Goobstation: port EE height/width sliders
+            #region Height and Width            
+
+            UpdateHeightWidthSliders();
+            UpdateDimensions(SliderUpdate.Both);
+
+            HeightSlider.OnValueChanged += _ => UpdateDimensions(SliderUpdate.Height);
+            WidthSlider.OnValueChanged += _ => UpdateDimensions(SliderUpdate.Width);
+
+            HeightReset.OnPressed += _ =>
+            {
+                var prototype = _species.Find(x => x.ID == Profile?.Species) ?? _species.First();
+                HeightSlider.Value = prototype.DefaultHeight;
+                UpdateDimensions(SliderUpdate.Height);
+            };
+
+            WidthReset.OnPressed += _ =>
+            {
+                var prototype = _species.Find(x => x.ID == Profile?.Species) ?? _species.First();
+                WidthSlider.Value = prototype.DefaultWidth;
+                UpdateDimensions(SliderUpdate.Width);
+            };
+
+            #endregion Height and Width
+            // end Goobstation: port EE height/width sliders
 
             #region Skin
 
@@ -771,6 +851,12 @@ namespace Content.Client.Lobby.UI
                 if (Profile?.Species.Equals(_species[i].ID) == true)
                 {
                     SpeciesButton.SelectId(i);
+
+                    // Europa-Start
+                    NewSpeciesButton.Text = name;
+                    NewSpeciesButton.Pressed = false;
+                    _speciesWindow?.Dispose();
+                    // Europa-End
                 }
             }
 
@@ -924,6 +1010,8 @@ namespace Content.Client.Lobby.UI
             UpdateHairPickers();
             UpdateCMarkingsHair();
             UpdateCMarkingsFacialHair();
+            UpdateHeightWidthSliders(); // Goobstation: port EE height/width sliders
+            UpdateWeight(); // Goobstation: port EE height/width sliders
 
             RefreshAntags();
             RefreshJobs();
@@ -1405,6 +1493,11 @@ namespace Content.Client.Lobby.UI
             UpdateSexControls(); // update sex for new species
             UpdateSpeciesGuidebookIcon();
             ReloadPreview();
+            // begin Goobstation: port EE height/width sliders
+            // Changing species provides inaccurate sliders without these
+            UpdateHeightWidthSliders();
+            UpdateWeight();
+            // end Goobstation: port EE height/width sliders
         }
 
         private void SetName(string newName)
@@ -1423,6 +1516,22 @@ namespace Content.Client.Lobby.UI
             Profile = Profile?.WithSpawnPriorityPreference(newSpawnPriority);
             SetDirty();
         }
+
+        // begin Goobstation: port EE height/width sliders
+        private void SetProfileHeight(float height)
+        {
+            Profile = Profile?.WithHeight(height);
+            ReloadProfilePreview();
+            IsDirty = true;
+        }
+
+        private void SetProfileWidth(float width)
+        {
+            Profile = Profile?.WithWidth(width);
+            ReloadProfilePreview();
+            IsDirty = true;
+        }
+        // end Goobstation: port EE height/width sliders
 
         public bool IsDirty
         {
@@ -1637,6 +1746,107 @@ namespace Content.Client.Lobby.UI
 
             SpawnPriorityButton.SelectId((int) Profile.SpawnPriority);
         }
+
+        // begin Goobstation: port EE height/width sliders
+        private void UpdateHeightWidthSliders()
+        {
+            if (Profile is null)
+                return;
+
+            var species = _species.Find(x => x.ID == Profile?.Species) ?? _species.First();
+
+            // we increase the min/max values of the sliders before we set their value, just so that we don't accidentally clamp down on a value loaded from a profile when we shouldn't
+            HeightSlider.MinValue = 0;
+            HeightSlider.MaxValue = 2;
+            HeightSlider.SetValueWithoutEvent(Profile?.Height ?? species.DefaultHeight);
+            HeightSlider.MinValue = species.MinHeight;
+            HeightSlider.MaxValue = species.MaxHeight;
+
+            WidthSlider.MinValue = 0;
+            WidthSlider.MaxValue = 2;
+            WidthSlider.SetValueWithoutEvent(Profile?.Width ?? species.DefaultWidth);
+            WidthSlider.MinValue = species.MinWidth;
+            WidthSlider.MaxValue = species.MaxWidth;
+
+            var height = MathF.Round(species.AverageHeight * HeightSlider.Value);
+            HeightLabel.Text = Loc.GetString("humanoid-profile-editor-height-label", ("height", (int) height));
+
+            var width = MathF.Round(species.AverageWidth * WidthSlider.Value);
+            WidthLabel.Text = Loc.GetString("humanoid-profile-editor-width-label", ("width", (int) width));
+
+            UpdateDimensions(SliderUpdate.Both);
+        }
+
+        private enum SliderUpdate
+        {
+            Height,
+            Width,
+            Both
+        }
+
+        private void UpdateDimensions(SliderUpdate updateType)
+        {
+            if (Profile == null)
+                return;
+
+            var species = _species.Find(x => x.ID == Profile?.Species) ?? _species.First();
+
+            var heightValue = Math.Clamp(HeightSlider.Value, species.MinHeight, species.MaxHeight);
+            var widthValue = Math.Clamp(WidthSlider.Value, species.MinWidth, species.MaxWidth);
+            var sizeRatio = species.SizeRatio;
+            var ratio = heightValue / widthValue;
+
+            if (updateType == SliderUpdate.Height || updateType == SliderUpdate.Both)
+                if (ratio < 1 / sizeRatio || ratio > sizeRatio)
+                    widthValue = heightValue / (ratio < 1 / sizeRatio ? (1 / sizeRatio) : sizeRatio);
+
+            if (updateType == SliderUpdate.Width || updateType == SliderUpdate.Both)
+                if (ratio < 1 / sizeRatio || ratio > sizeRatio)
+                    heightValue = widthValue * (ratio < 1 / sizeRatio ? (1 / sizeRatio) : sizeRatio);
+
+            heightValue = Math.Clamp(heightValue, species.MinHeight, species.MaxHeight);
+            widthValue = Math.Clamp(widthValue, species.MinWidth, species.MaxWidth);
+
+            HeightSlider.SetValueWithoutEvent(heightValue);
+            WidthSlider.SetValueWithoutEvent(widthValue);
+
+            SetProfileHeight(heightValue);
+            SetProfileWidth(widthValue);
+
+            var height = MathF.Round(species.AverageHeight * HeightSlider.Value);
+            HeightLabel.Text = Loc.GetString("humanoid-profile-editor-height-label", ("height", (int) height));
+
+            var width = MathF.Round(species.AverageWidth * WidthSlider.Value);
+            WidthLabel.Text = Loc.GetString("humanoid-profile-editor-width-label", ("width", (int) width));
+
+            UpdateWeight();
+        }
+
+        private void UpdateWeight()
+        {
+            if (Profile == null)
+                return;
+
+            var species = _species.Find(x => x.ID == Profile.Species) ?? _species.First();
+            //  TODO: Remove obsolete method
+            _prototypeManager.Index(species.Prototype).TryGetComponent<FixturesComponent>(out var fixture, _entManager.ComponentFactory);
+
+            if (fixture != null)
+            {
+                var avg = (Profile.Width + Profile.Height) / 2;
+                var weight = FixtureSystem.GetMassData(fixture.Fixtures["fix1"].Shape, fixture.Fixtures["fix1"].Density).Mass * avg;
+                WeightLabel.Text = Loc.GetString("humanoid-profile-editor-weight-label", ("weight", (int) weight));
+            }
+            else // Whelp, the fixture doesn't exist, guesstimate it instead
+                WeightLabel.Text = Loc.GetString("humanoid-profile-editor-weight-label", ("weight", (int) 71));
+
+            // SpriteViewS.InvalidateMeasure();
+            // SpriteViewN.InvalidateMeasure();
+            // SpriteViewE.InvalidateMeasure();
+            // SpriteViewW.InvalidateMeasure();
+            SpriteView.InvalidateMeasure();
+        }
+        // end Goobstation: port EE height/width sliders
 
         private void UpdateHairPickers()
         {
@@ -1861,5 +2071,52 @@ namespace Content.Client.Lobby.UI
             ImportButton.Disabled = false;
             ExportButton.Disabled = false;
         }
+
+        // Europa-Start
+        private void OnSkinColorOnValueChangedKeepColor(HumanoidCharacterProfile previous)
+        {
+            if (Profile is null) return;
+
+            var skin = _prototypeManager.Index<SpeciesPrototype>(Profile.Species).SkinColoration;
+            var color = previous.Appearance.SkinColor;
+
+            switch (skin)
+            {
+                case HumanoidSkinColor.HumanToned:
+                        var tone = SkinColor.HumanSkinToneFromColor(previous.Appearance.SkinColor);
+                        color = SkinColor.HumanSkinTone((int)tone);
+                        Skin.Value = tone;
+
+                        Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));//
+                        break;
+                case HumanoidSkinColor.Hues:
+                        break;
+                case HumanoidSkinColor.TintedHues:
+                        color = SkinColor.TintedHues(previous.Appearance.SkinColor);
+
+                        Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));
+                        break;
+                case HumanoidSkinColor.VoxFeathers:
+                        color = SkinColor.ClosestVoxColor(previous.Appearance.SkinColor);
+
+                        Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));
+                        break;
+                case HumanoidSkinColor.NoColor:
+                        color = Color.White;
+
+                        Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));
+                        break;
+                case HumanoidSkinColor.AnimalFur:
+                        color = SkinColor.ClosestAnimalFurColor(previous.Appearance.SkinColor);
+
+                        Profile = Profile.WithCharacterAppearance(Profile.Appearance.WithSkinColor(color));
+                        break;
+            }
+
+            _rgbSkinColorSelector.Color = color;
+
+            ReloadProfilePreview();
+        }
+        // Europa-End
     }
 }

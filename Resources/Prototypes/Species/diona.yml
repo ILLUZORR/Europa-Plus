@@ -1,7 +1,9 @@
 # SPDX-FileCopyrightText: 2023 Morb <14136326+Morb0@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2023 Nemanja <98561806+EmoGarbage404@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2024 Adrian16199 <144424013+Adrian16199@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2024 Skubman <ba.fallaria@gmail.com>
 # SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Froffy025 <scotttaco025@gmail.com>
 # SPDX-FileCopyrightText: 2025 BloodfiendishOperator <141253729+Diggy0@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
 # SPDX-FileCopyrightText: 2025 MilenVolf <63782763+MilenVolf@users.noreply.github.com>
@@ -9,6 +11,7 @@
 # SPDX-FileCopyrightText: 2025 Rouge2t7 <sarahoneill132@hotmail.com>
 # SPDX-FileCopyrightText: 2025 SX-7 <sn1.test.preria.2002@gmail.com>
 # SPDX-FileCopyrightText: 2025 SlamBamActionman <83650252+SlamBamActionman@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 VMSolidus <evilexecutive@gmail.com>
 # SPDX-FileCopyrightText: 2025 Zalycon <84675130+Zalycon@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2025 gluesniffler <159397573+gluesniffler@users.noreply.github.com>
 #
@@ -28,6 +31,27 @@
   femaleFirstNames: NamesDionaFirst
   lastNames: NamesDionaLast
   naming: TheFirstofLast
+  # Europa-Start
+  category: Classic
+  description: "/ServerInfo/_Europa/SpeciesDescriptions/Diona.xml"
+  pros:
+  - Получает на 0.5 меньше урона от удушья.
+  - Получает на 30% меньше тупого и на 20% меньше режущего урона.
+  - Голодают и испытывают жажду на 50%~ медленней.
+  - Могут дышать углекислым газом.
+  - Дышат реже в 2 раза, следовательно без воздуха/углекислого газа получают по 0.5 урона удушьем.
+  - Не могут порезаться пройдя по осколкам.
+  - Могут самостоятельно реанимироваться, при помощи нимф.
+  special:
+  - Дионы - растения, они могут употреблять удобрения в качестве лекарств и гербициды в качестве отравы.
+  - Cкорость метаболизма - 0.05 единиц. Это означает, что они усваивают всё намного медленнее, чем другие расы.
+  - Получают урон от голода кровотечением по 0.5 единиц в секунду.
+  - Не могут носить обувь.
+  cons:
+  - Получает на 50% больше урона огнём и 20% электричеством.
+  - Не может бегать.
+  - Легко возгораемые.
+  # Europa-End
 
 - type: speciesBaseSprites
   id: MobDionaSprites
@@ -35,6 +59,8 @@
     Head: MobDionaHead
     HeadTop: MobHumanoidAnyMarking
     HeadSide: MobHumanoidAnyMarking
+    Underwear: MobHumanoidAnyMarking
+    Undershirt: MobHumanoidAnyMarking
     Chest: MobDionaChest
     Groin: MobDionaGroin
     Eyes: MobDionaEyes
@@ -63,11 +89,35 @@
     Chest:
       points: 4
       required: false
-    Legs:
-      points: 6
-      required: false
-    Arms:
+    Underwear:
       points: 1
+      required: false
+    Undershirt:
+      points: 1
+      required: false
+    RightLeg:
+      points: 2
+      required: false
+    RightFoot:
+      points: 2
+      required: false
+    LeftLeg:
+      points: 2
+      required: false
+    LeftFoot:
+      points: 2
+      required: false
+    RightArm:
+      points: 2
+      required: false
+    RightHand:
+      points: 2
+      required: false
+    LeftArm:
+      points: 2
+      required: false
+    LeftHand:
+      points: 2
       required: false
     Overlay:
       points: 1

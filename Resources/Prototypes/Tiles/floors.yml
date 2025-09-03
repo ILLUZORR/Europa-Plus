@@ -111,8 +111,15 @@
 # SPDX-FileCopyrightText: 2024 themias <89101928+themias@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2024 Арт <123451459+JustArt1m@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2025 Aiden <28298836+Aidenkrz@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Clinux <160202097+cohanna@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 GoobBot <uristmchands@proton.me>
+# SPDX-FileCopyrightText: 2025 Princess Cheeseballs <66055347+Pronana@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 SX-7 <sn1.test.preria.2002@gmail.com>
 # SPDX-FileCopyrightText: 2025 Southbridge <7013162+southbridge-fur@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2025 Thomas <87614336+Aeshus@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 Weax <59857479+ImWeax@users.noreply.github.com>
+# SPDX-FileCopyrightText: 2025 cohanna <conornhanna@gmail.com>
+# SPDX-FileCopyrightText: 2025 kosticia <kosticia46@gmail.com>
 #
 # SPDX-License-Identifier: AGPL-3.0-or-later
 
@@ -234,6 +241,14 @@
   id: FloorSteelOffset
   name: tiles-steel-floor-offset
   sprite: /Textures/Tiles/steel_offset.png
+  # Europa-Start
+  variants: 4
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  # Europa-End
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
@@ -465,6 +480,14 @@
   id: FloorWhiteOffset
   name: tiles-white-floor-offset
   sprite: /Textures/Tiles/white_offset.png
+  # Europa-Start
+  variants: 4
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  # Europa-End
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
@@ -649,6 +672,14 @@
   id: FloorDarkOffset
   name: tiles-dark-floor-offset
   sprite: /Textures/Tiles/dark_offset.png
+  # Europa-Start
+  variants: 4
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  # Europa-End
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
@@ -809,6 +840,7 @@
   id: FloorSteelDirty
   name: tiles-dirty-steel-floor
   sprite: /Textures/Tiles/steel_dirty.png
+  variants: 4 # Europa
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
@@ -848,6 +880,14 @@
   id: FloorRockVault
   name: tiles-rock-floor
   sprite: /Textures/Tiles/rock_vault.png
+  # Europa-Start
+  variants: 4
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  # Europa-End
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
@@ -933,6 +973,14 @@
   id: FloorFreezer
   name: tiles-freezer
   sprite: /Textures/Tiles/freezer.png
+  # Europa-Start
+  variants: 4
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  # Europa-End
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
@@ -959,6 +1007,14 @@
   id: FloorHydro
   name: tiles-hydro-floor
   sprite: /Textures/Tiles/hydro.png
+  # Europa-Start
+  variants: 4
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  # Europa-End
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
@@ -991,6 +1047,18 @@
   id: FloorClown
   name: tiles-clown-floor
   sprite: /Textures/Tiles/clown.png
+  # Europa-Start
+  variants: 8
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  # Europa-End
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
@@ -1004,6 +1072,14 @@
   id: FloorMime
   name: tiles-mime-floor
   sprite: /Textures/Tiles/mime.png
+  # Europa-Start
+  variants: 4
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  # Europa-End
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
@@ -1017,6 +1093,14 @@
   id: FloorKitchen
   name: tiles-kitchen-floor
   sprite: /Textures/Tiles/kitchen.png
+  # Europa-Start
+  variants: 4
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  # Europa-End
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
@@ -1030,6 +1114,14 @@
   id: FloorLaundry
   name: tiles-laundry-floor
   sprite: /Textures/Tiles/laundry.png
+  # Europa-Start
+  variants: 4
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  # Europa-End
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
@@ -1043,8 +1135,11 @@
   id: FloorSteelDamaged
   name: tiles-steel-floor
   sprite: /Textures/Tiles/steel_damaged.png
-  variants: 5
+  variants: 8 # Europa-Edit | 5 > 8
   placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
   - 1.0
   - 1.0
   - 1.0
@@ -1063,8 +1158,14 @@
   id: FloorSteelBurnt
   name: tiles-steel-floor
   sprite: /Textures/Tiles/steel_burnt.png
-  variants: 2
+  variants: 8 # Europa-Edit | 2 > 8
   placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
   - 1.0
   - 1.0
   baseTurf: Plating
@@ -1510,6 +1611,14 @@
   id: FloorGold
   name: tiles-gold-tile
   sprite: /Textures/Tiles/gold.png
+  # Europa-Start
+  variants: 4
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  # Europa-End
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
@@ -1523,6 +1632,14 @@
   id: FloorSilver
   name: tiles-silver-tile
   sprite: /Textures/Tiles/silver.png
+  # Europa-Start
+  variants: 4
+  placementVariants:
+  - 1.0
+  - 1.0
+  - 1.0
+  - 1.0
+  # Europa-End
   baseTurf: Plating
   isSubfloor: false
   deconstructTools: [ Prying ]
@@ -1652,6 +1769,7 @@
   id: FloorGrass
   name: tiles-planet-grass-floor
   sprite: /Textures/Tiles/grass.png
+  variants: 4 # Europa
   baseTurf: FloorDirt
   isSubfloor: true
   footstepSounds:
@@ -1664,6 +1782,7 @@
   id: FloorGrassJungle
   name: tiles-jungle-grass-floor
   sprite: /Textures/Tiles/grassjungle.png
+  variants: 4 # Europa
   baseTurf: FloorDirt
   isSubfloor: true
   footstepSounds:
@@ -2128,8 +2247,11 @@
   id: FloorHullReinforced
   name: tiles-hull-reinforced
   sprite: /Textures/Tiles/hull_reinforced.png
-  baseTurf: Plating
-  isSubfloor: false
+  #goobstation start
+  baseTurf: Lattice
+  isSubfloor: true
+  friction: 1.5 #same as normal plating
+  #goobstation end
   footstepSounds:
     collection: FootstepHull
   itemDrop: FloorTileItemSteel
@@ -2265,3 +2387,4 @@
   itemDrop: FloorTileItemWoodLarge
   heatCapacity: 10000
   tileRipResistance: 100
+  

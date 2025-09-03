@@ -64,7 +64,7 @@
         type: Remove
       - !type:AdjustReagent
         reagent: Theobromine
-        amount: 0.05
+        amount: 0.02 # Europa-Edit | 0.05 > 0.02
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/coffeeglass.rsi
     state: icon_empty
@@ -88,7 +88,7 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Theobromine
-        amount: 0.05
+        amount: 0.2 # Europa-Edit | 0.05 > 0.2
 
 - type: reagent
   id: Cream
@@ -155,6 +155,11 @@
         key: Drowsiness
         time: 2.0
         type: Remove
+      # Europa-Start
+      - !type:AdjustReagent
+        reagent: Theobromine
+        amount: 0.01
+      # Europa-End
 
 - type: reagent
   id: GreenTea
@@ -170,6 +175,16 @@
   metamorphicMaxFillLevels: 4
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: false
+  # Europa-Start
+  metabolisms:
+    Drink:
+      effects:
+      - !type:SatiateThirst
+        factor: 2
+      - !type:AdjustReagent
+        reagent: Theobromine
+        amount: 0.02
+  # Europa-End
 
 - type: reagent
   id: Grenadine
@@ -211,6 +226,11 @@
         key: Drowsiness
         time: 2.0
         type: Remove
+      # Europa-Start
+      - !type:AdjustReagent
+        reagent: Theobromine
+        amount: 0.01
+      # Europa-End
 
 - type: reagent
   id: IcedGreenTea
@@ -248,7 +268,7 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Theobromine
-        amount: 0.05
+        amount: 0.01 # Europa-Edit | 0.05 > 0.01
 
 - type: reagent
   id: JuiceBerryPoison
@@ -314,6 +334,17 @@
       effects:
       - !type:SatiateThirst
         factor: 4
+      - !type:HealthChange
+        conditions:
+        - !type:OrganType
+          type: Plasmaman
+        damage:
+          groups:
+            Brute: -0.90
+          types:
+            Heat: -0.30
+            Shock: -0.30
+            Caustic: -0.30
 
 - type: reagent
   id: MilkGoat
@@ -441,6 +472,11 @@
         key: Drowsiness
         time: 2.0
         type: Remove
+      # Europa-Start
+      - !type:AdjustReagent
+        reagent: Theobromine
+        amount: 0.01
+      # Europa-End
 
 - type: reagent
   id: Tea
@@ -458,7 +494,7 @@
         factor: 2
       - !type:AdjustReagent
         reagent: Theobromine
-        amount: 0.05
+        amount: 0.02 # Europa-Edit | 0.05 > 0.02
   metamorphicSprite:
     sprite: Objects/Consumable/Drinks/teaglass.rsi
     state: icon_empty
@@ -584,9 +620,9 @@
       effects:
       - !type:SatiateThirst
         factor: 4
-      - !type:AdjustReagent
-        reagent: Theobromine
-        amount: 0.05
+#      - !type:AdjustReagent # Europa-Remove
+#        reagent: Theobromine
+#        amount: 0.05
 
 - type: reagent
   id: Pilk
@@ -643,6 +679,16 @@
   metamorphicFillBaseName: fill-
   metamorphicChangeColor: true
   fizziness: 0.3
+  # Europa-Start
+  metabolisms:
+    Drink:
+      effects:
+      - !type:SatiateThirst
+        factor: 2
+      - !type:AdjustReagent
+        reagent: Theobromine
+        amount: 0.01
+  # Europa-End
 
 - type: reagent
   id: Mopwata

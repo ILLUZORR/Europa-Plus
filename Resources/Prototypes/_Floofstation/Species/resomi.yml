@@ -24,6 +24,28 @@
   - Unsexed
   - Male
   - Female
+  # Europa-Start
+  category: Classic
+  description: "/ServerInfo/_Europa/SpeciesDescriptions/Resomi.xml"
+  pros:
+  - Невосприимчивы к урону от холода и другим воздействиям.
+  special:
+  - Могут поместится в вещмешок.
+  cons:
+  - Получают на 30% больше теплового урона.
+  - Получают на 15% больше тупого урона.
+  - Температура, которую большинство других видов считают комфортной, для них невыносимо высокая, и они начинают страдать начиная всего с 30°C.
+  - Не могут с лёгкостью тянуть другие расы и предметы, по сравнению с человеком.
+  # Europa-End
+  # begin Goobstation: port EE height/width sliders
+  # resomi sprites look very wrong when too big or too wide
+  minHeight: 0.80
+  defaultHeight: 0.90
+  maxHeight: 1
+  minWidth: 0.85
+  defaultWidth: 1
+  maxWidth: 1
+  # end Goobstation: port EE height/width sliders
 
 - type: speciesBaseSprites
   id: MobResomiSprites
@@ -49,26 +71,55 @@
 
 - type: markingPoints
   id: MobResomiMarkingLimits
-  onlyWhitelisted: true
   points:
     Hair:
+      points: 1
+      required: false
+    Snout:
       points: 1
       required: false
     Tail:
       points: 2
       required: true
       defaultMarkings: [ ResomiTail, ResomiTailFeathers ]
-    Head:
-      points: 2
+    HeadTop:
+      points: 8
+      required: false
+    HeadSide:
+      points: 8
       required: false
     Chest:
+      points: 10
+      required: false
+    Underwear:
+      points: 1
+      required: false
+    Undershirt:
+      points: 1
+      required: false
+    RightLeg:
+      points: 2
+      required: false
+    RightFoot:
+      points: 2
+      required: false
+    LeftLeg:
+      points: 2
+      required: false
+    LeftFoot:
+      points: 2
+      required: false
+    RightArm:
+      points: 2
+      required: false
+    RightHand:
       points: 3
       required: false
-    Legs:
+    LeftArm:
       points: 2
       required: false
-    Arms:
-      points: 2
+    LeftHand:
+      points: 3
       required: false
 
 - type: humanoidBaseSprite

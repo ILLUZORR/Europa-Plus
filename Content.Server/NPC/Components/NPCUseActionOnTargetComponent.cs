@@ -4,7 +4,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 using Content.Server.NPC.Systems;
-using Content.Shared.Actions;
+using Content.Shared.Actions.Components;
 using Robust.Shared.Prototypes;
 
 namespace Content.Server.NPC.Components;
@@ -25,8 +25,8 @@ public sealed partial class NPCUseActionOnTargetComponent : Component
     /// Action that's going to attempt to be used.
     /// </summary>
     [DataField(required: true)]
-    public List<EntProtoId<EntityWorldTargetActionComponent>> ActionId = new(); //  Europa-Edit
+    public EntProtoId<TargetActionComponent> ActionId;
 
-    [DataField] // Europa
-    public List<EntityUid> ActionEntities = new();
+    [DataField]
+    public EntityUid? ActionEnt;
 }

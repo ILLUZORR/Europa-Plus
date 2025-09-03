@@ -2,6 +2,10 @@ using Robust.Shared.Configuration;
 
 namespace Content.Shared.CCVar;
 
+//
+// License-Identifier: MIT
+//
+
 public sealed partial class CCVars
 {
     /// <summary>

@@ -1,0 +1,196 @@
+- type: species
+  id: Chitinid
+  name: species-name-chitinid
+  roundStart: true
+  prototype: MobChitinid
+  sprites: MobChitinidSprites
+  defaultSkinTone: "#ffda93"
+  markingLimits: MobChitinidMarkingLimits
+  dollPrototype: MobChitinidDummy
+  skinColoration: Hues
+  maleFirstNames: NamesChitinidFirstMale
+  femaleFirstNames: NamesChitinidFirstFemale
+  naming: First
+  # Europa-Start
+  category: Unusual
+  description: "/ServerInfo/_Europa/SpeciesDescriptions/Chitinid.xml"
+  pros:
+  - Получают на 80% меньше урона радиацией.
+  - Получают на 10% меньше режущего, тупого и колющего урона.
+  - Могут самостоятельно излечиваться от радиации в организме.
+  - Могут с лёгкостью тянуть другие расы и предметы, по сравнению с человеком.
+  - Могут излучать биолюминесцентный свет от своего тела.
+  special:
+  - Вырабатывают слабо-радиоактивные камни, при достижении достаточного количества радиации.
+  - Обладают кровью жука.
+  cons:
+  - Получают на 25% больше холодного урона.
+  - Получают на 15% больше шокового урона.
+  - Обычные шприцы не могут пробить хитин.
+  - Голодают на 33% быстрее.
+  # Europa-End
+
+- type: speciesBaseSprites
+  id: MobChitinidSprites
+  sprites:
+    Head: MobChitinidHead
+    Snout: MobHumanoidAnyMarking
+    Chest: MobChitinidChest
+    Groin: MobChitinidGroin
+    HeadTop: MobHumanoidAnyMarking
+    HeadSide: MobHumanoidAnyMarking
+    Tail: MobHumanoidAnyMarking
+    Eyes: MobChitinidEyes
+    LArm: MobChitinidLArm
+    RArm: MobChitinidRArm
+    LHand: MobChitinidLHand
+    RHand: MobChitinidRHand
+    LLeg: MobChitinidLLeg
+    RLeg: MobChitinidRLeg
+    LFoot: MobChitinidLFoot
+    RFoot: MobChitinidRFoot
+
+- type: humanoidBaseSprite
+  id: MobChitinidEyes
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: eyes
+
+- type: markingPoints
+  id: MobChitinidMarkingLimits
+  onlyWhitelisted: true
+  points:
+    Hair:
+      points: 0
+      required: false
+    FacialHair:
+      points: 0
+      required: false
+    Tail:
+      points: 1
+      required: true
+      defaultMarkings: [ ChitinidWingsDefault ]
+    Snout:
+      points: 1
+      required: false
+    HeadTop:
+      points: 1
+      required: true
+      defaultMarkings: [ ChitinidAntennasDefault ]
+    HeadSide:
+      points: 1
+      required: false
+    Head:
+      points: 1
+      required: false
+    Chest:
+      points: 1
+      required: false
+    Legs:
+      points: 6
+      required: false
+    Arms:
+      points: 6
+      required: false
+
+- type: humanoidBaseSprite
+  id: MobChitinidHead
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: head_m
+
+- type: humanoidBaseSprite
+  id: MobChitinidHeadMale
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: head_m
+
+- type: humanoidBaseSprite
+  id: MobChitinidHeadFemale
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: head_f
+
+- type: humanoidBaseSprite
+  id: MobChitinidChest
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: chest_m
+
+- type: humanoidBaseSprite
+  id: MobChitinidChestMale
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: chest_m
+
+- type: humanoidBaseSprite
+  id: MobChitinidChestFemale
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: chest_f
+
+- type: humanoidBaseSprite
+  id: MobChitinidGroin
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: groin_m
+
+- type: humanoidBaseSprite
+  id: MobChitinidGroinMale
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: groin_m
+
+- type: humanoidBaseSprite
+  id: MobChitinidGroinFemale
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: groin_f
+
+- type: humanoidBaseSprite
+  id: MobChitinidLLeg
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: l_leg
+
+- type: humanoidBaseSprite
+  id: MobChitinidLHand
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: l_hand
+
+- type: humanoidBaseSprite
+  id: MobChitinidLArm
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: l_arm
+
+- type: humanoidBaseSprite
+  id: MobChitinidLFoot
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: l_foot
+
+- type: humanoidBaseSprite
+  id: MobChitinidRLeg
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: r_leg
+
+- type: humanoidBaseSprite
+  id: MobChitinidRHand
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: r_hand
+
+- type: humanoidBaseSprite
+  id: MobChitinidRArm
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: r_arm
+
+- type: humanoidBaseSprite
+  id: MobChitinidRFoot
+  baseSprite:
+    sprite: _DV/Mobs/Species/Chitinid/parts.rsi
+    state: r_foot
