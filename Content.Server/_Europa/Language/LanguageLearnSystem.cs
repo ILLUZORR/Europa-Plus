@@ -10,6 +10,10 @@ using Robust.Shared.Audio.Systems;
 
 namespace Content.Server._Europa.Language;
 
+//
+// License-Identifier: AGPL-3.0-or-later
+//
+
 public sealed class LanguageLearnSystem : EntitySystem
 {
     [Dependency] private readonly DoAfterSystem _doAfterSystem = default!;

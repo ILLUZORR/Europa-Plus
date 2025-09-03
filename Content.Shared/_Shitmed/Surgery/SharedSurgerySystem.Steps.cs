@@ -48,13 +48,18 @@ using Content.Shared.Popups;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Utility;
 using System.Linq;
+using Content.Shared._Europa.CorticalBorer;
 
 namespace Content.Shared._Shitmed.Medical.Surgery;
 
 public abstract partial class SharedSurgerySystem
 {
+    private EntityQuery<SurgeryToolComponent> _toolQuery;
+
     private void InitializeSteps()
     {
+        _toolQuery = GetEntityQuery<SurgeryToolComponent>();
+
         SubscribeLocalEvent<SurgeryStepComponent, SurgeryStepEvent>(OnToolStep);
         SubscribeLocalEvent<SurgeryStepComponent, SurgeryStepCompleteCheckEvent>(OnToolCheck);
         SubscribeLocalEvent<SurgeryStepComponent, SurgeryCanPerformStepEvent>(OnToolCanPerform);
@@ -67,6 +72,7 @@ public abstract partial class SharedSurgerySystem
 
         SubSurgery<SurgeryTendWoundsEffectComponent>(OnTendWoundsStep, OnTendWoundsCheck);
         SubSurgery<SurgeryStepCavityEffectComponent>(OnCavityStep, OnCavityCheck);
+        SubSurgery<SurgeryStepRemoveCorticalBorerComponent>(OnCorticalBorerRemovalStep, OnCorticalBorerRemovalCheck); // Europa
         SubSurgery<SurgeryAddPartStepComponent>(OnAddPartStep, OnAddPartCheck);
         SubSurgery<SurgeryAffixPartStepComponent>(OnAffixPartStep, OnAffixPartCheck);
         SubSurgery<SurgeryRemovePartStepComponent>(OnRemovePartStep, OnRemovePartCheck);
@@ -263,6 +269,21 @@ public abstract partial class SharedSurgerySystem
             args.Cancelled = true;
     }
 
+    // Europa-Start
+    private void OnCorticalBorerRemovalStep(Entity<SurgeryStepRemoveCorticalBorerComponent> ent, ref SurgeryStepEvent args)
+    {
+        if (TryComp<CorticalBorerInfestedComponent>(args.Body, out var infested) &&
+            infested.InfestationContainer.ContainedEntities.Count != 0)
+            _corticalBorer.TryEjectBorer(infested.Borer);
+    }
+
+    private void OnCorticalBorerRemovalCheck(Entity<SurgeryStepRemoveCorticalBorerComponent> ent, ref SurgeryStepCompleteCheckEvent args)
+    {
+        if (HasComp<CorticalBorerInfestedComponent>(args.Body))
+            args.Cancelled = true;
+    }
+    // Europa-End
+
     private void OnAddPartStep(Entity<SurgeryAddPartStepComponent> ent, ref SurgeryStepEvent args)
     {
         if (!TryComp(args.Surgery, out SurgeryPartRemovedConditionComponent? removedComp)
@@ -292,7 +313,7 @@ public abstract partial class SharedSurgerySystem
         if (!TryComp(args.Surgery, out SurgeryOrganSlotConditionComponent? condition))
             return;
 
-        args.Cancelled = !_body.CanInsertOrgan(args.Part, condition.OrganSlot);
+        args.Cancelled |= !_body.CanInsertOrgan(args.Part, condition.OrganSlot);
     }
 
     private void OnAffixPartStep(Entity<SurgeryAffixPartStepComponent> ent, ref SurgeryStepEvent args)
@@ -851,6 +872,7 @@ public abstract partial class SharedSurgerySystem
         {
             foreach (var (tool, toolSpeed) in validTools)
             {
+                usedEv.IgnoreToggle = _toolQuery.CompOrNull(tool)?.IgnoreToggle ?? false;
                 RaiseLocalEvent(tool, ref usedEv);
                 if (usedEv.Cancelled)
                     return false;
@@ -862,11 +884,8 @@ public abstract partial class SharedSurgerySystem
             {
                 foreach (var tool in validTools.Keys)
                 {
-                    if (TryComp(tool, out SurgeryToolComponent? toolComp) &&
-                        toolComp.StartSound != null)
-                    {
-                        _audio.PlayPvs(toolComp.StartSound, tool);
-                    }
+                    if (_toolQuery.CompOrNull(tool)?.StartSound is {} sound)
+                        _audio.PlayPvs(sound, tool);
                 }
             }
         }

@@ -16,6 +16,10 @@
   dollPrototype: MobGingerbreadDummy
   skinColoration: HumanToned
   defaultSkinTone: "#9a7c5a"
+  # Europa-Start
+  category: Special
+  description: "/ServerInfo/Guidebook/Mobs/Gingerbread.xml"
+  # Europa-End
 
 - type: speciesBaseSprites
   id: MobGingerbreadSprites
@@ -23,6 +27,8 @@
     Head: MobGingerbreadHead
     HeadTop: MobHumanoidAnyMarking
     HeadSide: MobHumanoidAnyMarking
+    Underwear: MobHumanoidAnyMarking
+    Undershirt: MobHumanoidAnyMarking
     Chest: MobGingerbreadChest
     Groin: MobGingerbreadGroin
     Eyes: MobGingerbreadEyes

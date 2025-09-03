@@ -17,14 +17,16 @@ construction-graph-tag-red-crayon = красный мелок
 construction-graph-tag-yellow-crayon = жёлтый мелок
 construction-graph-tag-black-crayon = чёртый мелок
 # eva
-construction-graph-tag-eva-suit = ВКД скафандр
-construction-graph-tag-eva-helmet = ВКД шлем
+construction-graph-tag-eva-suit = ЕВА скафандр
+construction-graph-tag-eva-helmet = ЕВА шлем
 # hud
 construction-graph-tag-security-hud = визор охраны
 construction-graph-tag-medical-hud = медицинский визор
 # security
 construction-graph-tag-sun-glasses = солнцезащитные очки
 construction-graph-tag-security-helmet = шлем СБ
+# materials
+construction-graph-tag-capacitor = конденсатор
 # materials
 construction-graph-tag-manipulator = модульная машинная часть
 construction-graph-tag-voice-trigger = голосовой триггер
@@ -51,7 +53,7 @@ construction-graph-tag-radio = радио
 construction-graph-tag-pipe = газовая труба
 construction-graph-tag-human-head = человеческая голова
 construction-graph-tag-bucket = ведро
-construction-graph-tag-borg-arm = рука киборга
+construction-graph-tag-borg-arm = рука борга
 construction-graph-tag-borg-head = голова борга
 construction-graph-tag-medkit = аптечка
 construction-graph-tag-flower = цветок

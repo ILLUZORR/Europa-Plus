@@ -4,6 +4,10 @@ using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototy
 
 namespace Content.Shared._Europa.Language.Components;
 
+//
+// License-Identifier: AGPL-3.0-or-later
+//
+
 [RegisterComponent]
 public sealed partial class LanguageLearnComponent : Component
 {

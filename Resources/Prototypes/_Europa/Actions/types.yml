@@ -3,11 +3,10 @@
   name: Toggle energy dome
   description: Turn the energy barrier on or off.
   components:
-  - type: InstantAction
+  - type: Action
     itemIconStyle: BigAction
     priority: -10
-    icon:
-      sprite: Objects/Weapons/Melee/e_shield.rsi
-      state: eshield-on
-    event: !type:ToggleActionEvent
+    icon: { sprite: Objects/Weapons/Melee/e_shield.rsi, state: eshield-on }
     useDelay: 1
+  - type: InstantAction
+    event: !type:ToggleActionEvent

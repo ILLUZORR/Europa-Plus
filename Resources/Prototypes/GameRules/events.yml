@@ -130,6 +130,7 @@
 # SPDX-FileCopyrightText: 2025 Roudenn <romabond091@gmail.com>
 # SPDX-FileCopyrightText: 2025 SX-7 <92227810+SX-7@users.noreply.github.com>
 # SPDX-FileCopyrightText: 2025 SX-7 <sn1.test.preria.2002@gmail.com>
+# SPDX-FileCopyrightText: 2025 Solstice <solsticeofthewinter@gmail.com>
 # SPDX-FileCopyrightText: 2025 SolsticeOfTheWinter <solsticeofthewinter@gmail.com>
 # SPDX-FileCopyrightText: 2025 Tayrtahn <tayrtahn@gmail.com>
 # SPDX-FileCopyrightText: 2025 Ted Lukin <66275205+pheenty@users.noreply.github.com>
@@ -194,6 +195,8 @@
     - id: LoneAbductorSpawn # Shitmed - Starlight Abductors
     - id: DuoAbductorSpawn # Shitmed - Starlight Abductors
     - id: BingleSpawn #Goobstation - Bingle
+    - id: SlaughterDemonMidround # Goobstation - Slaughter Demon
+    - id: XenomorphsInfestation # WD EDIT
 
 - type: entity
   id: BaseStationEvent
@@ -232,7 +235,7 @@
   - type: StationEvent
     startAnnouncementColor: "#18abf5"
     startAudio:
-      path: /Audio/Announcements/announce.ogg
+      path: /Audio/_Europa/Announcements/flux.ogg # Europa-Edit
     weight: 8
     duration: 35
     chaos: # Goobstation
@@ -255,7 +258,7 @@
   - type: StationEvent
     startAnnouncementColor: "#18abf5"
     startAudio:
-      path: /Audio/Announcements/announce.ogg
+      path: /Audio/_Europa/Announcements/blusp_anomalies.ogg # Europa-Edit
     weight: 8
     duration: 35
     chaos: # Goobstation
@@ -489,6 +492,7 @@
       startingGear: ParadoxCloneGear
       roleLoadout:
       - RoleSurvivalVoxTank # give vox something to breath in case they don't get a copy
+      - RoleSurvivalPlasmaTank # Goobstation
       briefing:
         text: paradox-clone-role-greeting
         color: lightblue
@@ -574,13 +578,17 @@
   - type: StationEvent
     startAnnouncement: station-event-gas-leak-start-announcement
     startAudio:
-      path: /Audio/Announcements/attention.ogg
+      path: /Audio/Announcements/gasleak_start.ogg # Europa-Edit
     endAnnouncement: station-event-gas-leak-end-announcement
     weight: 8
     chaos:
       Atmos: 100
       Medical: 50
     eventType: Maintenance # Goobstation
+    endAudio: # Europa
+      path: /Audio/Announcements/gasleak_end.ogg
+      params:
+        volume: -4
   # Goobstation
   - type: GameRule
     chaosScore: 80 # most of the time scrubbers just clean it
@@ -634,7 +642,7 @@
     startAnnouncement: station-event-solar-flare-start-announcement
     endAnnouncement: station-event-solar-flare-end-announcement
     startAudio:
-      path: /Audio/Announcements/attention.ogg
+      path: /Audio/_Europa/Announcements/comms_blackout.ogg # Europa-Edit
     duration: 120
     maxDuration: 240
     chaos: # Goobstation
@@ -666,7 +674,7 @@
   - type: StationEvent
     startAnnouncement: station-event-vent-clog-start-announcement
     startAudio:
-      path: /Audio/Announcements/attention.ogg
+      path: /Audio/Announcements/attention.ogg # Europa-Edit
     earliestStart: 15
     minimumPlayers: 15
     weight: 5
@@ -686,7 +694,7 @@
   - type: StationEvent
     startAnnouncement: station-event-vent-creatures-start-announcement
     startAudio:
-      path: /Audio/Announcements/aliens.ogg
+      path: /Audio/Announcements/attention.ogg # Europa-Edit
     earliestStart: 20
     minimumPlayers: 15
     weight: 5
@@ -895,7 +903,6 @@
     eventType: HostilesSpawn # Goobstation
   # Goobstation
   - type: GameRule
-    chaosScore: 500
   - type: AlertLevelInterceptionRule
   - type: AntagSelection
     definitions:
@@ -904,9 +911,11 @@
       min: 1
       max: 2
       playerRatio: 10
+      chaosScore: 200 # Goobstation - same as roundstart traitor gamerule
       blacklist:
         components:
         - AntagImmune
+        - CommandStaff
       mindRoles:
       - MindRoleTraitorSleeper
 
@@ -945,6 +954,8 @@
       Friend: 20
       Mess: 30
     eventType: Chaotic # Goobstation
+    startAudio: # Europa
+      path: /Audio/_Europa/Adminbuse/i-storm1.ogg
   # Goobstation
   - type: GameRule
     chaosScore: 150
@@ -1038,3 +1049,24 @@
       min: 1
       max: 1
       pickPlayer: false
+
+- type: entity
+  id: AncientRogueKingSpawn
+  parent: BaseStationEventShortDelay
+  components:
+  - type: StationEvent
+    earliestStart: 20
+    weight: 8
+    duration: 10
+    minimumPlayers: 45
+    chaos: # Goobstation
+      Hostile: 100
+      Friend: 20
+      Combat: 100
+      Death: 100
+      Medical: 100
+    eventType: HostilesSpawn
+  - type: GameRule
+    chaosScore: 400
+  - type: RandomSpawnRule
+    prototype: CMMobXenoRogueKingSentient
