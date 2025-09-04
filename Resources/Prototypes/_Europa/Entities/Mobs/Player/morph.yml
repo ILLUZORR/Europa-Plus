@@ -39,10 +39,6 @@
       types:
         Blunt: 11
         Slash: 9
-  - type: TypingIndicator
-  - type: Tag
-    tags:
-      - DoorBumpOpener
   - type: ReplacementAccent
     accent: genericAggressive
   - type: Speech
@@ -75,7 +71,6 @@
         - MobState
       tags:
         - Structure
-  - type: Hands
   - type: MindContainer
   - type: ChameleonProjector
     whitelist:
@@ -84,7 +79,7 @@
       - Item
       - MobState
       tags:
-      - Bot # for funny bot moments
+      - Bot
     blacklist:
       components:
       - ChameleonDisguise # no becoming kleiner
@@ -111,6 +106,8 @@
         Base: dead
   - type: MovementAlwaysTouching
   - type: AntiRottingContainer
+  - type: NameIdentifier
+    group: GenericNumber
   - type: Destructible
     thresholds:
     - trigger:

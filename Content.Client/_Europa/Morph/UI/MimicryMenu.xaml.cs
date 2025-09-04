@@ -33,28 +33,26 @@ public sealed partial class MimicryMenu : RadialMenu
     private void UpdateUI()
     {
         var main = FindControl<RadialContainer>("Main");
-        if (main == null) return;
+        if (main == null)
+            return;
+
         main.RemoveAllChildren();
 
-        var player = _player.LocalEntity;
-        if (player == null)
+        if (!_ent.TryGetComponent<MorphComponent>(Entity, out var morph))
             return;
-        if (player == null)
-            return;
-
-        if (!_ent.TryGetComponent<MorphComponent>(player, out var morph))
-            return;
-
 
         main.RemoveAllChildren();
 
         foreach (var morphable in morph.MemoryObjects)
         {
+            if (!_ent.TryGetComponent<MetaDataComponent>(morphable, out var md))
+                continue;
+
             var button = new EmbeddedEntityMenuButton
             {
                 SetSize = new Vector2(64, 64),
-                ToolTip = _ent.TryGetComponent<MetaDataComponent>(morphable, out var md) ? md.EntityName : "Unknown",
-                NetEntity = md != null ? md.NetEntity : NetEntity.Invalid,
+                ToolTip = md.EntityName,
+                NetEntity = md.NetEntity,
             };
 
             var texture = new SpriteView(morphable, _ent)

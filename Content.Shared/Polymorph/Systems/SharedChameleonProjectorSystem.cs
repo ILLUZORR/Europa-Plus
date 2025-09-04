@@ -97,6 +97,7 @@ public abstract class SharedChameleonProjectorSystem : EntitySystem
         // Europa-Start
         if (!TryComp<ChameleonProjectorComponent>(ent.Comp.Projector, out var proj) || proj.NoRotActionEntity == null || proj.AnchorActionEntity == null)
             return;
+
         _actions.RemoveProvidedAction(ent.Comp.User, ent.Comp.Projector, proj.NoRotActionEntity.Value);
         _actions.RemoveProvidedAction(ent.Comp.User, ent.Comp.Projector, proj.AnchorActionEntity.Value);
         // Europa-End

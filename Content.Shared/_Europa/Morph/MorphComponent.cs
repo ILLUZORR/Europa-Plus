@@ -78,7 +78,7 @@ public sealed partial class MorphComponent : Component
     /// <summary>
     /// Звук обеда
     /// </summary>
-    [ViewVariables(VVAccess.ReadWrite), DataField("soundDevour")]
+    [ViewVariables(VVAccess.ReadWrite), DataField]
     public SoundSpecifier? SoundDevour = new SoundPathSpecifier("/Audio/Effects/demon_consume.ogg")
     {
         Params = AudioParams.Default.WithVolume(-3f),
@@ -87,7 +87,7 @@ public sealed partial class MorphComponent : Component
     /// <summary>
     /// объява цк после массового размножения
     /// </summary>
-    [ViewVariables(VVAccess.ReadWrite), DataField("soundReplication")]
+    [ViewVariables(VVAccess.ReadWrite), DataField]
     public SoundSpecifier? SoundReplication = new SoundPathSpecifier("/Audio/Announcements/outbreak7.ogg")
     {
         Params = AudioParams.Default.WithVolume(-3f),
@@ -96,7 +96,7 @@ public sealed partial class MorphComponent : Component
     /// <summary>
     /// время нужное для обеда
     /// </summary>
-    [DataField("devourTime")]
+    [DataField]
     public float DevourTime = 3f;
 
     public List<EntityUid> ContainedCreatures = new();
@@ -106,31 +106,32 @@ public sealed partial class MorphComponent : Component
     /// </summary>
     [AutoNetworkedField]
     public List<EntityUid> MemoryObjects = new();
+
     [DataField]
     public EntityWhitelist? DevourWhitelist = new();
 
     //дальше идёт хлам, который вам не надо использовать
-    [DataField("devourAction", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+    [DataField(customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
     public string? DevourAction = "ActionMorphDevour";
     public EntityUid? DevourActionEntity;
 
-    [DataField("memoryAction", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+    [DataField(customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
     public string? MemoryAction = "ActionMorphRemember";
     public EntityUid? MemoryActionEntity;
 
-    [DataField("replicationAction", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+    [DataField(customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
     public string? ReplicationAction = "ActionMorphReplication";
     public EntityUid? ReplicationActionEntity;
 
-    [DataField("mimicryAction", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+    [DataField(customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
     public string? MimicryAction = "ActionMorphMimicry";
     public EntityUid? MimicryActionEntity;
 
-    [DataField("ambushAction", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+    [DataField(customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
     public string? AmbushAction = "ActionMorphAmbush";
     public EntityUid? AmbushActionEntity;
 
-    [DataField("openVentAction", customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
+    [DataField(customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
     public string? VentOpenAction = "ActionMorphVentOpen";
     public EntityUid? VentOpenActionEntity;
 
@@ -142,10 +143,8 @@ public sealed partial class MorphComponent : Component
 }
 
 /// <summary>
-/// копирование данных предметов для мимикрии. Работает ТОЛЬКО на простых предметах, гуманоидов или существ с телом отдельный метод
+/// Копирование данных предметов для мимикрии. Работает ТОЛЬКО на простых предметах, гуманоидах или существах с телом — для них используется отдельный метод.
 /// </summary>
-public sealed partial class MorphDevourActionEvent : EntityTargetActionEvent { }
-
 public sealed partial class MorphMimicryRememberActionEvent : EntityTargetActionEvent { }
 
 public sealed partial class MorphReproduceActionEvent : InstantActionEvent { }
@@ -158,12 +157,14 @@ public sealed partial class MorphAmbushActionEvent : InstantActionEvent { }
 
 public sealed partial class MorphVentOpenActionEvent : EntityTargetActionEvent { }
 
-[Serializable, NetSerializable] public sealed partial class EventMimicryActivate : BoundUserInterfaceMessage
+[Serializable, NetSerializable]
+public sealed partial class EventMimicryActivate : BoundUserInterfaceMessage
 {
     public NetEntity? Target { get; set; }
 }
 
-[Serializable, NetSerializable] public enum MimicryKey : byte
+[Serializable, NetSerializable]
+public enum MimicryKey : byte
 {
     Key
 }

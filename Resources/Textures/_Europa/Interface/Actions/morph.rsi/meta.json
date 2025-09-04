@@ -1,7 +1,7 @@
 {
     "version": 1,
     "license": "CC-BY-SA-3.0",
-    "copyright": "Made by ratyyy",
+    "copyright": "Taken from ss220 | Edited by ratyyy | acid by PuroSlavKing (Github)",
     "size": {
         "x": 32,
         "y": 32
@@ -18,6 +18,9 @@
         },
         {
             "name": "mimicry"
+        },
+        {
+            "name": "acid"
         },
         {
             "name": "ambush"

@@ -9,7 +9,8 @@ public sealed partial class MorphAmbushComponent : Component
     /// время стана после касания, но не удара
     /// </summary>
     [DataField]
-    public int StunTimeInteract = 6;
+    public TimeSpan StunTimeInteract = TimeSpan.FromSeconds(6);
+
     /// <summary>
     /// урон при касании
     /// </summary>

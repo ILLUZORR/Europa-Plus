@@ -70,12 +70,8 @@ public sealed partial class ChameleonProjectorComponent : Component
     public EntityUid? Disguised;
 }
 
-public sealed partial class UndisguisedEvent : EntityEventArgs // Europa
+public sealed class UndisguisedEvent : EntityEventArgs // Europa
 {
-    [DataField]
-    public EntityUid? User;
-    public UndisguisedEvent(EntityUid user)
-    {
-        User = user;
-    }
+    public EntityUid User { get; }
+    public UndisguisedEvent(EntityUid user) => User = user;
 }

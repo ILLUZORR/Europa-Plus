@@ -53,7 +53,7 @@ public sealed class MorphSystem : SharedMorphSystem
     [Dependency] private readonly HumanoidAppearanceSystem _humanoid = default!;
     [Dependency] protected readonly SharedAudioSystem _audioSystem = default!;
     [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
+    [Dependency] private readonly SharedPopupSystem _popup = default!;
     [Dependency] private readonly EntityWhitelistSystem _whitelistSystem = default!;
     [Dependency] private readonly MobThresholdSystem _threshold = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
@@ -98,14 +98,15 @@ public sealed class MorphSystem : SharedMorphSystem
             var transform = Transform(uid);
             _transform.SetCoordinates(entity, transform.Coordinates);
         }
+
         container.EmptyContainer(component.Container);
     }
     private void OnInit(EntityUid uid, MorphComponent component, MapInitEvent args)
     {
         _actions.AddAction(uid, ref component.DevourActionEntity, component.DevourAction);
         _actions.AddAction(uid, ref component.MemoryActionEntity, component.MemoryAction);
-        _actions.AddAction(uid, ref component.ReplicationActionEntity, component.ReplicationAction);
         _actions.AddAction(uid, ref component.MimicryActionEntity, component.MimicryAction);
+        _actions.AddAction(uid, ref component.ReplicationActionEntity, component.ReplicationAction);
         _actions.AddAction(uid, ref component.AmbushActionEntity, component.AmbushAction);
         _actions.AddAction(uid, ref component.VentOpenActionEntity, component.VentOpenAction);
     }
@@ -138,6 +139,9 @@ public sealed class MorphSystem : SharedMorphSystem
 
         if (_hands.TryGetActiveItem((args.HitEntities[0], hands), out var item) && _random.Prob(ent.Comp.EatWeaponChanceOnHit))
         {
+            if (_hunger.GetHunger(hunger) < ent.Comp.EatWeaponHungerReq)
+                return;
+
             container.Insert(item.Value, ent.Comp.Container);
             _audioSystem.PlayPvs(ent.Comp.SoundDevour, ent);
             _hunger.ModifyHunger(ent, -ent.Comp.EatWeaponHungerReq, hunger);
@@ -157,7 +161,7 @@ public sealed class MorphSystem : SharedMorphSystem
         if (container.IsEntityInContainer(uid))
             return;
 
-        if (comp.OpenVentFoodReq > _hunger.GetHunger(hunger))
+        if (_hunger.GetHunger(hunger) < comp.OpenVentFoodReq)
             return;
 
         if (!TryComp<WeldableComponent>(args.Target, out var weldableComponent) || !weldableComponent.IsWelded)
@@ -165,6 +169,7 @@ public sealed class MorphSystem : SharedMorphSystem
 
         _hunger.ModifyHunger(uid, -comp.OpenVentFoodReq, hunger);
         _weldable.SetWeldedState(args.Target, false, weldableComponent);
+        _popup.PopupEntity(Loc.GetString("morph-vent-action-success", ("target", ToPrettyString(args.Target))), uid, PopupType.Medium);
     }
 
     private void OnExamined(EntityUid uid, MorphComponent comp, ExaminedEvent args)
@@ -188,6 +193,7 @@ public sealed class MorphSystem : SharedMorphSystem
         if (targ != null)
             MimicryNonHumanoid((uid, chamel), targ.Value);
     }
+
     private void OnAmbushAction(EntityUid uid, MorphComponent component, MorphAmbushActionEvent args)
     {
         if (!TryComp<ChameleonProjectorComponent>(uid, out var chamel))
@@ -200,8 +206,8 @@ public sealed class MorphSystem : SharedMorphSystem
         }
         else
         {
-            _popupSystem.PopupCursor(Loc.GetString("morphs-into-ambush"), uid);
             EnsureComp<MorphAmbushComponent>(uid);
+            _popup.PopupCursor(Loc.GetString("morphs-into-ambush"), uid);
 
             if (TryComp<ChameleonDisguisedComponent>(uid, out var disgui))
                 EnsureComp<MorphAmbushComponent>(disgui.Disguise);
@@ -222,7 +228,10 @@ public sealed class MorphSystem : SharedMorphSystem
 
     public void AmbushBreak(EntityUid uid)
     {
-        _popupSystem.PopupCursor(Loc.GetString("morphs-out-of-ambush"), uid);
+        if (!HasComp<MorphAmbushComponent>(uid))
+            return;
+
+        _popup.PopupCursor(Loc.GetString("morphs-out-of-ambush"), uid);
         RemCompDeferred<MorphAmbushComponent>(uid);
 
         if (TryComp<MorphComponent>(uid, out var morph))
@@ -240,18 +249,16 @@ public sealed class MorphSystem : SharedMorphSystem
             Dirty(uid, input);
         }
     }
+
     private void OnAmbusInteract(EntityUid uid, MorphAmbushComponent component, UndisguisedEvent args)
     {
-        if (args.User == null)
-            return;
-
-        _stun.TryParalyze(args.User.Value, TimeSpan.FromSeconds(component.StunTimeInteract), false);
+        _stun.TryParalyze(args.User, component.StunTimeInteract, false);
         _damageable.TryChangeDamage(args.User, component.DamageOnTouch);
         AmbushBreak(uid);
     }
+
     private void OnMimicryRadialMenu(EntityUid uid, MorphComponent component, MorphOpenRadialMenuEvent args)
     {
-        // Инциализируем контейнер мимикрии
         component.Container = container.EnsureContainer<Container>(uid, component.MimicryContainerId);
 
         if (!TryComp<UserInterfaceComponent>(uid, out var uic))
@@ -260,6 +267,7 @@ public sealed class MorphSystem : SharedMorphSystem
         _ui.OpenUi((uid, uic), MimicryKey.Key, uid);
         _chameleon.TryReveal(uid);
     }
+
     private void OnMimicryRememberAction(EntityUid uid, MorphComponent component, MorphMimicryRememberActionEvent args)
     {
         if (!TryComp<ChameleonProjectorComponent>(uid, out var chamel))
@@ -285,21 +293,32 @@ public sealed class MorphSystem : SharedMorphSystem
         {
             if (_chameleon.IsInvalid(chamel, args.Target))
             {
-                _popupSystem.PopupCursor(Loc.GetString("morph-unable-to-remember"), uid);
+                _popup.PopupCursor(Loc.GetString("morph-unable-to-remember"), uid);
                 return;
             }
 
-            if (component.MemoryObjects.Count() > 5) { component.MemoryObjects.RemoveAt(0); }
+            if (component.MemoryObjects.Count() > 5)
+            {
+                component.MemoryObjects.RemoveAt(0);
+            }
+
             component.MemoryObjects.Add(args.Target);
+            _popup.PopupEntity(
+                Loc.GetString("morph-remember-action-success", ("target", ToPrettyString(args.Target))),
+                uid,
+                PopupType.Medium
+            );
         }
 
         Dirty(uid, component);
     }
+
     //сюда надо перенести части из метода выше, а пока этот метод в комментах
     // public void MimicryHumanoid(EntityUid morph, EntityUid humanoid, HumanoidAppearanceComponent apperance)
     // {
 
     // }
+
     public void MimicryNonHumanoid(Entity<ChameleonProjectorComponent> morph, EntityUid toChameleon)
     {
         if (!Exists(toChameleon) || Deleted(toChameleon))
@@ -307,6 +326,7 @@ public sealed class MorphSystem : SharedMorphSystem
 
         _chameleon.Disguise(morph, morph, toChameleon);
     }
+
     private void OnDevourAction(EntityUid uid, MorphComponent component, MorphDevourActionEvent args)
     {
         component.Container = container.EnsureContainer<Container>(uid, component.ContainerId);
@@ -326,7 +346,7 @@ public sealed class MorphSystem : SharedMorphSystem
             switch (targetState.CurrentState)
             {
                 case MobState.Critical:
-                    _popupSystem.PopupClient(Loc.GetString("devour-action-popup-message-fail-target-alive"), uid, uid);
+                    _popup.PopupEntity(Loc.GetString("devour-action-popup-message-fail-target-alive"), uid, uid);
                     break;
                 case MobState.Dead:
 
@@ -336,19 +356,20 @@ public sealed class MorphSystem : SharedMorphSystem
                     });
                     break;
                 default:
-                    _popupSystem.PopupClient(Loc.GetString("devour-action-popup-message-fail-target-alive"), uid, uid);
+                    _popup.PopupEntity(Loc.GetString("devour-action-popup-message-fail-target-alive"), uid, uid);
                     break;
             }
 
             return;
         }
 
-        _popupSystem.PopupClient(Loc.GetString("devour-action-popup-message-structure"), uid, uid);
+        _popup.PopupEntity(Loc.GetString("devour-action-popup-message-structure"), uid, uid);
         _doAfterSystem.TryStartDoAfter(new DoAfterArgs(EntityManager, uid, component.DevourTime / 2, new MorphDevourDoAfterEvent(), uid, target: target, used: uid)
         {
             BreakOnMove = true,
         });
     }
+
     private void OnReproduceAction(EntityUid uid, MorphComponent component, MorphReproduceActionEvent args)
     {
         if (!TryComp<HungerComponent>(uid, out var hunger))
@@ -387,7 +408,7 @@ public sealed class MorphSystem : SharedMorphSystem
             health = -component.EatWeaponHungerReq;
             _hunger.ModifyHunger(uid, (float)health.Value, hunger);
             _audioSystem.PlayPvs(component.SoundDevour, uid);
-            _transform.SetCoordinates(args.Target.Value, new EntityCoordinates(args.Target.Value, MapCoordinates.Nullspace.Position));
+            container.Insert(args.Target.Value, component.Container);
             component.ContainedCreatures.Add(args.Target.Value);
             return;
         }
@@ -398,7 +419,7 @@ public sealed class MorphSystem : SharedMorphSystem
         if (health == null)
             return;
 
-        if (!HasComp<HumanoidAppearanceComponent>(args.Args.Target))
+        if (!HasComp<HumanoidAppearanceComponent>(args.Target))
             health /= 2;
 
         var damage_brute = new DamageSpecifier(_proto.Index(BruteDamageGroup), -health.Value / 2);
@@ -406,7 +427,7 @@ public sealed class MorphSystem : SharedMorphSystem
 
         _damageable.TryChangeDamage(uid, damage_brute);
         _damageable.TryChangeDamage(uid, damage_burn);
-        _hunger.ModifyHunger(uid, (float)health.Value / 3.5f, hunger);
+        _hunger.ModifyHunger(uid, Math.Abs((float)health.Value / 3.5f), hunger);
         _audioSystem.PlayPvs(component.SoundDevour, uid);
         container.Insert(args.Target.Value, component.Container);
     }
