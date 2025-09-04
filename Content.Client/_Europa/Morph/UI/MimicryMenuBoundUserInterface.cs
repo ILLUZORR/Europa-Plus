@@ -5,6 +5,10 @@ using Robust.Client.UserInterface;
 
 namespace Content.Client._Europa.Morph.UI;
 
+//
+// License-Identifier: AGPL-3.0-or-later
+//
+
 public sealed partial class MimicryMenuBoundUserInterface : BoundUserInterface
 {
     [Dependency] private readonly IClyde _displayManager = default!;

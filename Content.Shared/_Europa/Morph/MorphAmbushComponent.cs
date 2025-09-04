@@ -2,18 +2,19 @@ using Content.Shared.Damage;
 
 namespace Content.Shared._Europa.Morph;
 
+//
+// License-Identifier: AGPL-3.0-or-later
+//
+
 [RegisterComponent]
 public sealed partial class MorphAmbushComponent : Component
 {
     /// <summary>
-    /// время стана после касания, но не удара
+    ///     Stun time after touching, not hitting.
     /// </summary>
     [DataField]
     public TimeSpan StunTimeInteract = TimeSpan.FromSeconds(6);
 
-    /// <summary>
-    /// урон при касании
-    /// </summary>
     [DataField]
     public DamageSpecifier DamageOnTouch = new()
     {

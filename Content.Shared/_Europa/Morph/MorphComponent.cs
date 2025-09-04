@@ -10,107 +10,74 @@ using Robust.Shared.Serialization;
 
 namespace Content.Shared._Europa.Morph;
 
+//
+// License-Identifier: AGPL-3.0-or-later
+//
+
 [RegisterComponent, AutoGenerateComponentState, NetworkedComponent]
 public sealed partial class MorphComponent : Component
 {
     /// <summary>
-    ///     Container for various consumable items
+    ///     Container for various consumable items.
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly)]
     public Container Container = default!;
     public string ContainerId = "morphContainer";
 
     /// <summary>
-    ///     Контейнер для костылей, а вернее подгрузки предметов для ГУИ мимикрии
+    ///     Just need.
     /// </summary>
     [ViewVariables(VVAccess.ReadOnly)]
     public Container MimicryContainer = default!;
     public string MimicryContainerId = "mimicryContainer";
 
-    /// <summary>
-    ///     урон при касании
-    /// </summary>
     [DataField]
     public DamageSpecifier DamageOnTouch = default!;
 
-    /// <summary>
-    ///     нужно исключительно для размножения
-    /// </summary>
     [DataField]
     public string MorphSpawnProto = "MorphGhostRole";
 
-    /// <summary>
-    ///     шанс скушать оружие ударом морфа
-    /// </summary>
     [DataField]
     public float EatWeaponChanceOnHit = 0.2f;
 
-    /// <summary>
-    ///     шанс скушать оружие ударом по морфу
-    /// </summary>
     [DataField]
     public float EatWeaponChanceOnHited = 0.5f;
 
-    /// <summary>
-    ///     количество еды, нужное чтобы скушать оруже
-    /// </summary>
     [DataField]
     public int EatWeaponHungerReq = 5;
 
-    /// <summary>
-    /// после скольки морфов на станции ЦК объявит о них
-    /// </summary>
     [DataField]
     public int DetectableCount = 6;
 
-    /// <summary>
-    ///     количество еды, нужное для открытия вентиляции
-    /// </summary>
     [DataField]
     public int OpenVentFoodReq = 5;
 
-    /// <summary>
-    ///     количество еды, нужное для размножения
-    /// </summary>
     [DataField]
     public int ReplicationFoodReq = 200;
 
-    /// <summary>
-    /// Звук обеда
-    /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField]
     public SoundSpecifier? SoundDevour = new SoundPathSpecifier("/Audio/Effects/demon_consume.ogg")
     {
         Params = AudioParams.Default.WithVolume(-3f),
     };
 
-    /// <summary>
-    /// объява цк после массового размножения
-    /// </summary>
     [ViewVariables(VVAccess.ReadWrite), DataField]
     public SoundSpecifier? SoundReplication = new SoundPathSpecifier("/Audio/Announcements/outbreak7.ogg")
     {
         Params = AudioParams.Default.WithVolume(-3f),
     };
 
-    /// <summary>
-    /// время нужное для обеда
-    /// </summary>
     [DataField]
     public float DevourTime = 3f;
 
     public List<EntityUid> ContainedCreatures = new();
 
-    /// <summary>
-    /// вайтлист на обед
-    /// </summary>
     [AutoNetworkedField]
     public List<EntityUid> MemoryObjects = new();
 
     [DataField]
     public EntityWhitelist? DevourWhitelist = new();
 
-    //дальше идёт хлам, который вам не надо использовать
     [DataField(customTypeSerializer: typeof(PrototypeIdSerializer<EntityPrototype>))]
     public string? DevourAction = "ActionMorphDevour";
     public EntityUid? DevourActionEntity;
@@ -142,9 +109,6 @@ public sealed partial class MorphComponent : Component
 
 }
 
-/// <summary>
-/// Копирование данных предметов для мимикрии. Работает ТОЛЬКО на простых предметах, гуманоидах или существах с телом — для них используется отдельный метод.
-/// </summary>
 public sealed partial class MorphMimicryRememberActionEvent : EntityTargetActionEvent { }
 
 public sealed partial class MorphReproduceActionEvent : InstantActionEvent { }

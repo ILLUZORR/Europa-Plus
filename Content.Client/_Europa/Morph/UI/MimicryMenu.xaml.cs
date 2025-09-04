@@ -8,6 +8,10 @@ using System.Numerics;
 
 namespace Content.Client._Europa.Morph.UI;
 
+//
+// License-Identifier: AGPL-3.0-or-later
+//
+
 public sealed partial class MimicryMenu : RadialMenu
 {
     [Dependency] private readonly EntityManager _ent = default!;

@@ -3,6 +3,10 @@ using Content.Shared.DoAfter;
 
 namespace Content.Shared._Europa.Morph;
 
+//
+// License-Identifier: AGPL-3.0-or-later
+//
+
 public abstract class SharedMorphSystem : EntitySystem
 {
     public override void Initialize() { }

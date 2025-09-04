@@ -39,6 +39,10 @@ using Robust.Shared.Map;
 
 namespace Content.Server._Europa.Morph;
 
+//
+// License-Identifier: AGPL-3.0-or-later
+//
+
 public sealed class MorphSystem : SharedMorphSystem
 {
     [Dependency] private readonly ActionBlockerSystem _actionBlocker = default!;
