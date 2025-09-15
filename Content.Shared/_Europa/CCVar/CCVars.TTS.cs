@@ -56,4 +56,10 @@ public sealed partial class CCVars
     /// </summary>
     public static readonly CVarDef<float> TTSVolume =
         CVarDef.Create("tts.volume", 0f, CVar.CLIENTONLY | CVar.ARCHIVE);
+
+    /// <summary>
+    /// Url to the best tts ever!1!1!1!
+    /// </summary>
+    public static readonly CVarDef<string> NttsUrl =
+        CVarDef.Create("tts.ntts_url", "https://ntts.fdev.team/", CVar.SERVER | CVar.REPLICATED);
 }
