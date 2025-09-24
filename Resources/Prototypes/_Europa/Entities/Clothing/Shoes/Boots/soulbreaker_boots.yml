@@ -1,0 +1,62 @@
+- type: entity
+  parent: [ ClothingShoesMilitaryBase, BaseMajorContraband ]
+  id: SoulbreakerBoots
+  name: soulbreaker boots
+  description: Standard hive world militarized boots.
+  components:
+  - type: Sprite
+    sprite: _Europa/Clothing/Shoes/Boots/soulbreaker.rsi
+  - type: Clothing
+    sprite: _Europa/Clothing/Shoes/Boots/soulbreaker.rsi
+  - type: NoSlip
+  - type: FootstepModifier
+    footstepSoundCollection:
+      collection: FootstepCatwalk
+      params:
+        volume: -25
+
+- type: entity
+  parent: [ClothingShoesBase, BaseToggleClothing, BaseJetpack, BaseMajorContraband]
+  id: SoulbreakerMagboots
+  name: soulbreaker magboots
+  description: Powerful reactive boots that allow you to stay on the surface even under high torque.
+  components:
+  - type: Sprite
+    sprite: _Europa/Clothing/Shoes/Boots/soulbreaker_magboots.rsi
+    layers:
+    - state: icon
+      map: [ "enum.ToggleableVisuals.Layer" ]
+  - type: Clothing
+    sprite: _Europa/Clothing/Shoes/Boots/soulbreaker_magboots.rsi
+  - type: ToggleClothing
+    action: ActionToggleMagboots
+    mustEquip: false
+  - type: ComponentToggler
+    components:
+    - type: NoSlip
+  - type: ItemTogglePrefix
+    prefixOn: on
+  - type: ToggleClothingPrefix
+    prefixOn: on
+  - type: Magboots
+  - type: ClothingSpeedModifier
+    walkModifier: 1.3
+    sprintModifier: 1.2
+  - type: Appearance
+  - type: GenericVisualizer
+    visuals:
+      enum.ToggleableVisuals.Enabled:
+        enum.ToggleableVisuals.Layer:
+          True: {state: icon-on}
+          False: {state: icon}
+  - type: GasTank
+    outputPressure: 60.0
+    air:
+      volume: 2
+      temperature: 293.15
+      moles:
+      - 0.2
+      - 0.2
+  - type: Item
+    sprite: null
+    size: Normal

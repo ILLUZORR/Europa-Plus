@@ -1,0 +1,10 @@
+- type: entity
+  parent: [ ClothingHandsGlovesPowerglove, BaseMajorContraband]
+  id: SoulbreakerCombatGloves
+  name: soulbreaker combat gloves
+  description: A grip stronger than the lion's jaws.
+  components:
+  - type: Sprite
+    sprite: _Europa/Clothing/Hands/soulbreaker_gloves.rsi
+  - type: Clothing
+    sprite: _Europa/Clothing/Hands/soulbreaker_gloves.rsi
