@@ -1,10 +1,9 @@
-using Content.Shared._IslamicTrance.Components;
 using Content.Shared.Actions;
 using Content.Shared.Chat;
 using Robust.Shared.Audio.Systems;
 using Robust.Shared.Network;
 
-namespace Content.Shared._IslamicTrance.Systems;
+namespace Content.Shared._Europa.Soulbreakers;
 
 public abstract class SharedIslamicTrancerSystem : EntitySystem
 {

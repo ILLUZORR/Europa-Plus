@@ -4,7 +4,7 @@ using Robust.Shared.GameStates;
 using Robust.Shared.Prototypes;
 using Robust.Shared.Serialization.TypeSerializers.Implementations.Custom.Prototype;
 
-namespace Content.Shared._IslamicTrance.Components;
+namespace Content.Shared._Europa.Soulbreakers;
 
 [RegisterComponent, NetworkedComponent, AutoGenerateComponentState]
 public sealed partial class IslamicTrancerComponent : Component
