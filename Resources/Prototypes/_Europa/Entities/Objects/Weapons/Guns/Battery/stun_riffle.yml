@@ -50,8 +50,8 @@
   - type: MeleeWeapon
     damage:
       types:
-        Blunt: 30
-        Structural: 30
+        Blunt: 35
+        Structural: 25
     angle: 0
     wideAnimationRotation: 90
     soundHit:

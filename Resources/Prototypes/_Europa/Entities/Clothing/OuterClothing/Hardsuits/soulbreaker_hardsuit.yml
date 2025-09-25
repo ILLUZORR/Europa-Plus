@@ -102,6 +102,14 @@
     delayDelta: 5.0
     knockdownTimeDelta: -5.0
   - type: StaminaResistance
-    damageCoefficient: 0.1
+    damageCoefficient: 0.05
   - type: ExplosionResistance
-    damageCoefficient: 0.1
+    damageCoefficient: 0.05
+  - type: ClothingGrantComponent
+    component:
+    - type: SupermatterImmune
+    - type: EventHorizonIgnore
+      horizonWhitelist:
+        tags:
+        - Tesla
+    - type: ContainmentFieldIgnore
