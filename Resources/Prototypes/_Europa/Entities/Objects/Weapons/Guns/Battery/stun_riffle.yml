@@ -19,7 +19,7 @@
       shader: unshaded
   - type: Gun
     selectedMode: FullAuto
-    fireRate: 2
+    fireRate: 4
     availableModes:
     - SemiAuto
     - FullAuto
@@ -27,7 +27,7 @@
       path: /Audio/Weapons/Guns/Gunshots/taser2.ogg
   - type: ProjectileBatteryAmmoProvider
     proto: StunRiffleDisablerBolt
-    fireCost: 100
+    fireCost: 50
   - type: Appearance
   - type: BatterySelfRecharger
     autoRecharge: true
@@ -50,7 +50,8 @@
   - type: MeleeWeapon
     damage:
       types:
-        Blunt: 25
+        Blunt: 30
+        Structural: 30
     angle: 0
     wideAnimationRotation: 90
     soundHit:

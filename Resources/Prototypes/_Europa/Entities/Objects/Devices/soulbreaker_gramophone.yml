@@ -5,6 +5,7 @@
   description: This wonderful melody inspires new achievements.
   components:
   - type: Sprite
+    noRot: false
     sprite: _Europa/Objects/Devices/soulbreaker_gramophone.rsi
     layers:
     - state: "on"
