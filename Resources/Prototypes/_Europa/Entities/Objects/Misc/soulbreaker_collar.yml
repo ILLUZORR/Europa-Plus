@@ -17,13 +17,13 @@
   - type: Item
     size: Small
     storedRotation: 90
-  - type: Handcuff
-    cuffTime: 2.5
-    uncuffTime: 15.0
-    breakoutTime: 30.0
-    stunBonus: 2.0
-    cuffedRSI: _Europa/Objects/Devices/collar.rsi
-    bodyIconState: body-overlay
+#  - type: Handcuff
+#    cuffTime: 2.5
+#    uncuffTime: 15.0
+#    breakoutTime: 30.0
+#    stunBonus: 2.0
+#    cuffedRSI: _Europa/Objects/Devices/collar.rsi
+#    bodyIconState: body-overlay
   - type: Sprite
     sprite: _Europa/Objects/Devices/collar.rsi
     state: handcuff
