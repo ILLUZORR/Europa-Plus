@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EuropaModule\Content.Europa.Shared", "EuropaModule\Content.Europa.Shared\Content.Europa.Shared.csproj", "{7F3E2C1B-1D4E-4F4F-9A5B-4B7DAEEDB37C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EuropaModule\Content.Europa.Server", "EuropaModule\Content.Europa.Server\Content.Europa.Server.csproj", "{C8A531DE-8F5F-47C4-9B0E-9E9F7D4A92AB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EuropaModule\Content.Europa.Client", "EuropaModule\Content.Europa.Client\Content.Europa.Client.csproj", "{1A94C950-0F66-44C9-8FA4-9F6A81A5C731}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Content.Shared", "Content.Shared\Content.Shared.csproj", "{26AEEBB3-DDE7-443A-9F43-7BC7F4ACF6B5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Content.Server", "Content.Server\Content.Server.csproj", "{B38DBBD0-04C2-4D1A-84E2-B3446F6ADF2A}"
