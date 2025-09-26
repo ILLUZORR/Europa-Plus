@@ -8,3 +8,4 @@
 [submodule "EuropaModule"]
 	path = EuropaModule
 	url = https://github.com/ILLUZORR/EuropaModule.git
+	branch = master
