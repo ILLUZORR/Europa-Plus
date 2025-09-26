@@ -2,3 +2,9 @@
 	path = RobustToolbox
 	url = https://github.com/space-wizards/RobustToolbox.git
 	branch = master
+[submodule "path/to"]
+	path = path/to
+	url = https://github.com/ILLUZORR/EuropaModule.git
+[submodule "EuropaModule"]
+	path = EuropaModule
+	url = https://github.com/ILLUZORR/EuropaModule.git
