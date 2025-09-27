@@ -1,0 +1,44 @@
+- type: entity
+  parent: [ ClothingHeadHardsuitWithLightBase, BaseMajorContraband]
+  id: SoulbreakerHardsuitHelmet
+  name: soulbreaker hardsuit helmet
+  description: Protects your head. Protect your head.
+  components:
+  - type: Sprite
+    sprite: _Europa/Clothing/Head/Hardsuits/soulbreaker_hardsuit.rsi
+  - type: Clothing
+    sprite: _Europa/Clothing/Head/Hardsuits/soulbreaker_hardsuit.rsi
+  - type: PointLight
+    mask: /Textures/_Europa/Effects/LightMasks/dual-mask.png
+    color: "#dec6a8"
+    radius: 6
+    energy: 50
+  - type: PressureProtection
+    highPressureMultiplier: 0.01
+    lowPressureMultiplier: 1000
+  - type: Armor
+    traumaDeductions:
+      Dismemberment: 0.05
+      OrganDamage: 0
+      BoneDamage: 0.05
+      VeinsDamage: 0
+      NerveDamage: 0
+    modifiers:
+      coefficients:
+        Blunt: 0.05
+        Slash: 0.05
+        Piercing: 0.1
+        Heat: 0.15
+        Radiation: 0.25
+        Caustic: 0.5
+  - type: FlashImmunity
+  - type: FlashSoundSuppression
+  - type: TemperatureProtection
+    heatingCoefficient: 0.05
+    coolingCoefficient: 0.05
+  - type: FireProtection
+    reduction: 0.2
+  - type: StaminaResistance
+    damageCoefficient: 0.1
+  - type: ExplosionResistance
+    damageCoefficient: 0.1

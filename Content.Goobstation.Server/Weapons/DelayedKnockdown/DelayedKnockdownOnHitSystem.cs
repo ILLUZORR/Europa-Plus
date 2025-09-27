@@ -11,6 +11,7 @@
 
 using Content.Goobstation.Common.Weapons.DelayedKnockdown;
 using Content.Goobstation.Shared.Clothing;
+using Content.Goobstation.Shared.Weapons.DelayedKnockdown;
 using Content.Server.Heretic.Components.PathSpecific;
 using Content.Server.Heretic.EntitySystems.PathSpecific;
 using Content.Server.Stunnable;
@@ -19,7 +20,9 @@ using Content.Shared._Shitcode.Weapons.Misc;
 using Content.Shared.Armor;
 using Content.Shared.Damage.Events;
 using Content.Shared.Inventory;
+using Content.Shared.Projectiles;
 using Content.Shared.StatusEffect;
+using Content.Shared.Throwing;
 using Content.Shared.Timing;
 
 namespace Content.Goobstation.Server.Weapons.DelayedKnockdown;
@@ -44,6 +47,37 @@ public sealed class DelayedKnockdownOnHitSystem : EntitySystem
 
         SubscribeLocalEvent<ChampionStanceComponent, DelayedKnockdownAttemptEvent>(OnChampionDelayedKnockdownAttempt);
         SubscribeLocalEvent<SilverMaelstromComponent, DelayedKnockdownAttemptEvent>(OnMaelstromDelayedKnockdownAttempt);
+
+        SubscribeLocalEvent<DelayedKnockdownOnCollideComponent, ProjectileHitEvent>(OnProjectileHit);
+        SubscribeLocalEvent<DelayedKnockdownOnCollideComponent, ThrowDoHitEvent>(OnThrowHit);
+    }
+
+    private void OnProjectileHit(EntityUid uid, DelayedKnockdownOnCollideComponent component, ref ProjectileHitEvent args)
+    {
+        OnCollide(uid, component, args.Target);
+    }
+
+    private void OnThrowHit(EntityUid uid, DelayedKnockdownOnCollideComponent component, ThrowDoHitEvent args)
+    {
+        OnCollide(uid, component, args.Target);
+    }
+
+    private void OnCollide(EntityUid uid, DelayedKnockdownOnCollideComponent comp, EntityUid target)
+    {
+        if (!_status.CanApplyEffect(target, "KnockedDown"))
+            return;
+
+        var ev = new DelayedKnockdownAttemptEvent();
+        RaiseLocalEvent(target, ev);
+
+        if (ev.Cancelled)
+            return;
+
+        var delayedKnockdown = EnsureComp<DelayedKnockdownComponent>(target);
+        delayedKnockdown.Time = MathF.Min(comp.Delay + ev.DelayDelta, delayedKnockdown.Time);
+        delayedKnockdown.KnockdownTime =
+            MathF.Max(comp.KnockdownTime + ev.KnockdownTimeDelta, delayedKnockdown.KnockdownTime);
+        delayedKnockdown.Refresh &= comp.Refresh;
     }
 
     private void OnMaelstromDelayedKnockdownAttempt(Entity<SilverMaelstromComponent> ent,

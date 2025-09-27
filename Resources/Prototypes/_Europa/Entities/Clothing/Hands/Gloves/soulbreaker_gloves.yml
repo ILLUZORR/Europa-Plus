@@ -1,0 +1,33 @@
+- type: entity
+  parent: [ ClothingHandsGlovesCombat, BaseMajorContraband]
+  id: SoulbreakerCombatGloves
+  name: soulbreaker combat gloves
+  description: A grip stronger than the lion's jaws.
+  components:
+  - type: Sprite
+    sprite: _Europa/Clothing/Hands/soulbreaker_gloves.rsi
+  - type: Clothing
+    sprite: _Europa/Clothing/Hands/soulbreaker_gloves.rsi
+  - type: Fiber
+    fiberMaterial: fibers-classified
+    fiberColor: fibers-pitch-black
+  - type: ClothingGrantComponent
+    component:
+    - type: Prying
+      pryPowered: true
+      force: true
+      speedModifier: 4.5
+  - type: MeleeWeapon
+    attackRate: 2
+    damage:
+      types:
+        Blunt: 25
+        Structural: 15
+    mustBeEquippedToUse: true
+    soundHit:
+      path: /Audio/_Goobstation/Weapons/Effects/metalcrush.ogg
+    canWideSwing: false
+  - type: StaminaDamageOnHit
+    damage: 30
+  - type: Tag
+    tags: []

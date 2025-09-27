@@ -1,0 +1,16 @@
+- type: entity
+  name: soulbreaker phone
+  description: This phone looks like it's made of stone.
+  parent: [ RadioHandheld, BaseMajorContraband ]
+  id: SoulbreakerPhone
+  components:
+  - type: RadioMicrophone
+    broadcastChannel: Soulbreakers
+    listenRange: 1
+  - type: RadioSpeaker
+    channels:
+    - Soulbreakers
+  - type: Sprite
+    sprite: _Europa/Objects/Devices/soulbreaker_phone.rsi
+  - type: Item
+    sprite: _Europa/Objects/Devices/soulbreaker_phone.rsi

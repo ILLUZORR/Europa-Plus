@@ -5,3 +5,11 @@
   frequency: 1454
   color: "#FF8C00"
   longRange: true
+
+- type: radioChannel
+  id: Soulbreakers
+  name: chat-radio-soulbreakers
+  keycode: 'д'
+  frequency: 1488
+  color: "#ff7b08"
+  longRange: true

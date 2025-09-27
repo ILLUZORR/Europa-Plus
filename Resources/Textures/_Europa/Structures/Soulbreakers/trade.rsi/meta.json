@@ -1,0 +1,27 @@
+{
+  "version": 1,
+  "license": "Closed Party",
+  "copyright": "RendySandy",
+  "size": {
+    "x": 32,
+    "y": 32
+  },
+  "states": [
+    {
+      "name": "gbtnc0"
+    },
+    {
+      "name": "gbtncb"
+    },
+    {
+      "name": "gbtnc",
+      "delays": [
+        [
+          0.2,
+          0.2,
+          0.2
+        ]
+      ]
+    }
+  ]
+}

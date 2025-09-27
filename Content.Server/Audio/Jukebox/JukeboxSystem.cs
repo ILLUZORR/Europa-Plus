@@ -44,11 +44,11 @@
 using Content.Server.Power.Components;
 using Content.Server.Power.EntitySystems;
 using Content.Shared.Audio.Jukebox;
+using Content.Shared.Item.ItemToggle.Components;
 using Content.Shared.Power;
 using Robust.Server.GameObjects;
 using Robust.Shared.Audio;
 using Robust.Shared.Audio.Components;
-using Robust.Shared.Audio.Systems;
 using Robust.Shared.Player;
 using Robust.Shared.Prototypes;
 using JukeboxComponent = Content.Shared.Audio.Jukebox.JukeboxComponent;
@@ -58,8 +58,8 @@ namespace Content.Server.Audio.Jukebox;
 
 public sealed class JukeboxSystem : SharedJukeboxSystem
 {
-    [Dependency] private readonly IPrototypeManager _protoManager = default!;
     [Dependency] private readonly AppearanceSystem _appearanceSystem = default!;
+    [Dependency] private readonly IPrototypeManager _protoManager = default!;
 
     public override void Initialize()
     {
@@ -73,7 +73,21 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         SubscribeLocalEvent<JukeboxComponent, ComponentInit>(OnComponentInit);
         SubscribeLocalEvent<JukeboxComponent, ComponentShutdown>(OnComponentShutdown);
 
+        SubscribeLocalEvent<JukeboxComponent, ItemToggledEvent>(OnJukeboxToggled);
+
         SubscribeLocalEvent<JukeboxComponent, PowerChangedEvent>(OnPowerChanged);
+    }
+
+    private void OnJukeboxToggled(Entity<JukeboxComponent> ent, ref ItemToggledEvent args)
+    {
+        if (ent.Comp.SelectedSongId == null)
+            return;
+
+        if (ent.Comp.AudioStream != null)
+            Stop((ent, ent.Comp));
+        else
+            Play((ent, ent.Comp));
+
     }
 
     private void OnComponentInit(EntityUid uid, JukeboxComponent component, ComponentInit args)
@@ -86,23 +100,42 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
 
     private void OnJukeboxPlay(EntityUid uid, JukeboxComponent component, ref JukeboxPlayingMessage args)
     {
-        if (Exists(component.AudioStream))
+        Play((uid, component));
+    }
+
+    private void Play(Entity<JukeboxComponent> ent)
+    {
+        if (Exists(ent.Comp.AudioStream))
         {
-            Audio.SetState(component.AudioStream, AudioState.Playing);
+            Audio.SetState(ent.Comp.AudioStream, AudioState.Playing);
         }
         else
         {
-            component.AudioStream = Audio.Stop(component.AudioStream);
+            ent.Comp.AudioStream = Audio.Stop(ent.Comp.AudioStream);
 
-            if (string.IsNullOrEmpty(component.SelectedSongId) ||
-                !_protoManager.TryIndex(component.SelectedSongId, out var jukeboxProto))
+            if (string.IsNullOrEmpty(ent.Comp.SelectedSongId) ||
+                !_protoManager.TryIndex(ent.Comp.SelectedSongId, out var jukeboxProto))
             {
                 return;
             }
 
-            component.AudioStream = Audio.PlayPvs(jukeboxProto.Path, uid, AudioParams.Default.WithMaxDistance(10f).WithVolume(MapToRange(component.Volume, component.MinSlider, component.MaxSlider, component.MinVolume, component.MaxVolume)))?.Entity; // Europa
-            Dirty(uid, component);
+            ent.Comp.AudioStream = Audio.PlayPvs(jukeboxProto.Path, ent.Owner, AudioParams.Default.WithMaxDistance(20f).WithVolume(MapToRange(ent.Comp.Volume, ent.Comp.MinSlider, ent.Comp.MaxSlider, ent.Comp.MinVolume, ent.Comp.MaxVolume)).WithLoop(true))?.Entity; // Europa
+
+            Dirty(ent.Owner, ent.Comp);
         }
+    }
+
+    private void Pause(Entity<JukeboxComponent> entity)
+    {
+        Audio.SetState(entity.Comp.AudioStream, AudioState.Paused);
+        Dirty(entity);
+    }
+
+    private void Stop(Entity<JukeboxComponent> entity)
+    {
+        Audio.SetState(entity.Comp.AudioStream, AudioState.Stopped);
+        entity.Comp.AudioStream = Audio.Stop(entity.Comp.AudioStream);
+        Dirty(entity);
     }
 
     private void OnJukeboxPause(Entity<JukeboxComponent> ent, ref JukeboxPauseMessage args)
@@ -146,12 +179,6 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         Stop(entity);
     }
 
-    private void Stop(Entity<JukeboxComponent> entity)
-    {
-        Audio.SetState(entity.Comp.AudioStream, AudioState.Stopped);
-        Dirty(entity);
-    }
-
     private void OnJukeboxSelected(EntityUid uid, JukeboxComponent component, JukeboxSelectedMessage args)
     {
         if (!Audio.IsPlaying(component.AudioStream))
@@ -193,7 +220,7 @@ public sealed class JukeboxSystem : SharedJukeboxSystem
         Dirty(uid, component);
     }
     // Europa-End
-    
+
     private void OnComponentShutdown(EntityUid uid, JukeboxComponent component, ComponentShutdown args)
     {
         component.AudioStream = Audio.Stop(component.AudioStream);

@@ -1,0 +1,115 @@
+- type: entity
+  parent: [ClothingOuterBase, GeigerCounterClothing, AllowSuitStorageClothing, BaseMajorContraband]
+  id: SoulbreakerHardsuit
+  name: soulbreaker hardsuit
+  description: You better ask Allah for forgiveness...
+  components:
+  - type: Sprite
+    sprite: _Europa/Clothing/OuterClothing/Hardsuits/soulbreaker_hardsuit.rsi
+  - type: Clothing
+    sprite: _Europa/Clothing/OuterClothing/Hardsuits/soulbreaker_hardsuit.rsi
+  - type: PressureProtection
+    highPressureMultiplier: 0.01
+    lowPressureMultiplier: 1000
+  - type: TemperatureProtection
+    heatingCoefficient: 0.05
+    coolingCoefficient: 0.05
+  - type: FireProtection
+    reduction: 0.2
+  - type: IgniteFromGasImmunity
+    parts:
+    - Chest
+    - Groin
+    - LeftArm
+    - RightArm
+    - LeftLeg
+    - RightLeg
+    - LeftFoot
+    - RightFoot
+  - type: ClothingSpeedModifier
+    walkModifier: 0.8
+    sprintModifier: 0.6
+  - type: HeldSpeedModifier
+  - type: Item
+    size: Ginormous
+    shape:
+    - 0,0,4,2
+  - type: Armor
+    coverage:
+    - Chest
+    - Groin
+    - Arm
+    - Hand
+    - Leg
+    - Foot
+    - Tail
+    - Other
+    traumaDeductions:
+      Dismemberment: 0.05
+      OrganDamage: 0
+      BoneDamage: 0.05
+      VeinsDamage: 0
+      NerveDamage: 0
+    modifiers:
+      coefficients:
+        Blunt: 0.05
+        Slash: 0.05
+        Piercing: 0.1
+        Heat: 0.15
+        Radiation: 0.25
+        Caustic: 0.5
+  - type: ContainerContainer
+    containers:
+      toggleable-clothing: !type:Container {}
+  - type: UserInterface
+    interfaces:
+      enum.ToggleClothingUiKey.Key:
+        type: ToggleableClothingBoundUserInterface
+  - type: GroupExamine
+  - type: Tag
+    tags:
+    - Hardsuit
+  - type: ProtectedFromStepTriggers
+    slots: WITHOUT_POCKET
+  - type: DamageOnInteractProtection
+    damageProtection:
+      flatReductions:
+        Heat: 15
+        Caustic: 15
+    slots: OUTERCLOTHING
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_Goobstation/Items/handling/backpack_pickup.ogg
+      params:
+        volume: -4
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_Goobstation/Items/handling/backpack_drop.ogg
+      params:
+        volume: -4
+  - type: EmitSoundOnLand
+    sound:
+      path: /Audio/_Goobstation/Items/handling/backpack_drop.ogg
+      params:
+        volume: -4
+  - type: HideClothingLayerClothing
+    hiddenSlots:
+    - jumpsuit
+  - type: ToggleableClothing
+    clothingPrototypes:
+      head: SoulbreakerHardsuitHelmet
+  - type: ModifyDelayedKnockdown
+    delayDelta: 5.0
+    knockdownTimeDelta: -5.0
+  - type: StaminaResistance
+    damageCoefficient: 0.05
+  - type: ExplosionResistance
+    damageCoefficient: 0.05
+  - type: ClothingGrantComponent
+    component:
+    - type: SupermatterImmune
+    - type: EventHorizonIgnore
+      horizonWhitelist:
+        tags:
+        - Tesla
+    - type: ContainmentFieldIgnore

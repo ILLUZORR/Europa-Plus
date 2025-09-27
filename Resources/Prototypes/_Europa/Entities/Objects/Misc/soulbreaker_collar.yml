@@ -1,0 +1,43 @@
+- type: entity
+  name: soulbreaker collar
+  description: Used by criminals and other villains for enslavement.
+  id: SoulbreakerCollar
+  parent: [ ClothingNeckBase, BaseMajorContraband]
+  components:
+  - type: EmitSoundOnPickup
+    sound:
+      path: /Audio/_Goobstation/Items/other/Handcuffs/pickup.ogg
+      params:
+        volume: -4
+  - type: EmitSoundOnDrop
+    sound:
+      path: /Audio/_Goobstation/Items/other/Handcuffs/drop.ogg
+      params:
+        volume: -4
+  - type: Item
+    size: Small
+    storedRotation: 90
+#  - type: Handcuff
+#    cuffTime: 2.5
+#    uncuffTime: 15.0
+#    breakoutTime: 30.0
+#    stunBonus: 2.0
+#    cuffedRSI: _Europa/Objects/Devices/collar.rsi
+#    bodyIconState: body-overlay
+  - type: Sprite
+    sprite: _Europa/Objects/Devices/collar.rsi
+    state: handcuff
+  - type: Tag
+    tags:
+    - Handcuffs
+  - type: MeleeWeapon
+    wideAnimationRotation: 90
+    resetOnHandSelected: false
+    damage:
+      types:
+        Blunt: 0
+#  - type: GuideHelp
+#    guides:
+#    - Soulbreakers
+  - type: UseDelay
+    delay: 1.5

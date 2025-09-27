@@ -44,12 +44,16 @@ public sealed partial class JukeboxComponent : Component
     [ViewVariables]
     public float SelectAccumulator;
     // Europa-Start
-    [ViewVariables, AutoNetworkedField]
+    [DataField, AutoNetworkedField]
     public float Volume = 50f;
 
+    [DataField]
     public float MinVolume = -30f;
+    [DataField]
     public float MaxVolume = 0f;
+    [DataField]
     public float MinSlider = 0f;
+    [DataField]
     public float MaxSlider = 100f;
     // Europa-End
 }
@@ -75,7 +79,7 @@ public sealed class JukeboxSetTimeMessage(float songTime) : BoundUserInterfaceMe
     public float SongTime { get; } = songTime;
 }
 
-// Europa-Start 
+// Europa-Start
 [Serializable, NetSerializable]
 public sealed class JukeboxSetVolumeMessage(float volume) : BoundUserInterfaceMessage
 {

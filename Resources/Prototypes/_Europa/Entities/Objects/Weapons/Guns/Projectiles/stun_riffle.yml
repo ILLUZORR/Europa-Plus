@@ -1,0 +1,199 @@
+- type: entity
+  parent: BaseBullet
+  id: StunRiffleDisablerBolt
+  name : stun riffle bolt
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Reflective
+    reflective:
+    - None
+  - type: FlyBySound
+    sound:
+      collection: EnergyMiss
+      params:
+        volume: 5
+  - type: Sprite
+    sprite: _Europa/Objects/Weapons/Guns/Projectiles/orange.rsi
+    layers:
+    - state: laser_orange
+      shader: unshaded
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.15,-0.3,0.15,0.3"
+        hard: false
+        mask:
+        - Opaque
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer:
+        - Impassable
+        - MidImpassable
+        - HighImpassable
+        - LowImpassable
+        hard: False
+  - type: Ammo
+    muzzleFlash: StunRiffleDisablerBoltMuzzleFlashEffect
+  - type: StaminaDamageOnCollide
+    damage: 175
+  - type: Projectile
+    impactEffect: StunRiffleDisablerBoltImpactEffect
+    damage:
+      types:
+        Heat: 0
+    soundHit:
+      collection: WeakHit
+    forceSound: true
+  - type: BlurOnCollide
+    blurTime: 1
+  - type: StunOnCollide
+    stunAmount: 3
+    knockdownAmount: 5
+    slowdownAmount: 10
+    walkSpeedMultiplier: 0.8
+    runSpeedMultiplier: 0.8
+
+- type: entity
+  parent: BaseBullet
+  id: StunRiffleHeatBolt
+  name : stun riffle bolt
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Reflective
+    reflective:
+    - None
+  - type: FlyBySound
+    sound:
+      collection: EnergyMiss
+      params:
+        volume: 5
+  - type: Sprite
+    sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+    layers:
+    - state: omnilaser_greyscale
+      shader: unshaded
+      color: red
+  - type: Physics
+  - type: Fixtures
+    fixtures:
+      projectile:
+        shape:
+          !type:PhysShapeAabb
+          bounds: "-0.15,-0.3,0.15,0.3"
+        hard: false
+        mask:
+        - Opaque
+      fly-by:
+        shape: !type:PhysShapeCircle
+          radius: 1.5
+        layer:
+        - Impassable
+        - MidImpassable
+        - HighImpassable
+        - LowImpassable
+        hard: False
+  - type: Ammo
+    muzzleFlash: StunRiffleHeatBoltMuzzleFlashEffect
+  - type: Projectile
+    impactEffect: StunRiffleHeatBoltImpactEffect
+    damage:
+      types:
+        Heat: 30
+    soundHit:
+      collection: WeakHit
+    forceSound: true
+  - type: IgniteOnCollide
+    fireStacks: 1
+  - type: BlurOnCollide
+    blurTime: 3
+
+- type: entity
+  id: StunRiffleDisablerBoltImpactEffect
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: TimedDespawn
+    lifetime: 0.2
+  - type: Sprite
+    drawdepth: Effects
+    layers:
+    - shader: unshaded
+      map: ["enum.EffectLayers.Unshaded"]
+      sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+      state: impact_laser_greyscale
+      color: orange
+  - type: EffectVisuals
+  - type: Tag
+    tags:
+    - HideContextMenu
+
+- type: entity
+  parent: MuzzleFlashEffect
+  id: StunRiffleDisablerBoltMuzzleFlashEffect
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: BelowMobs
+    offset: 0.15, 0
+    layers:
+    - shader: unshaded
+      map: ["enum.EffectLayers.Unshaded"]
+      sprite: _Europa/Objects/Weapons/Guns/Projectiles/orange.rsi
+      state: orange_flash
+
+- type: entity
+  id: StunRiffleHeatBoltImpactEffect
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: TimedDespawn
+    lifetime: 0.2
+  - type: Sprite
+    drawdepth: Effects
+    layers:
+    - shader: unshaded
+      map: ["enum.EffectLayers.Unshaded"]
+      sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+      state: impact_laser_greyscale
+      color: red
+  - type: EffectVisuals
+  - type: Tag
+    tags:
+    - HideContextMenu
+
+- type: entity
+  parent: MuzzleFlashEffect
+  id: StunRiffleHeatBoltMuzzleFlashEffect
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    drawdepth: BelowMobs
+    offset: 0.15, 0
+    layers:
+    - shader: unshaded
+      map: ["enum.EffectLayers.Unshaded"]
+      sprite: Objects/Weapons/Guns/Projectiles/projectiles_tg.rsi
+      state: heavylaser_flash
+
+- type: selectableAmmo
+  id: StunRiffleHeatBolt
+  desc: Kill them all!
+  icon:
+    sprite: _Europa/Icons/ammo_selectable.rsi
+    state: kill
+    shader: unshaded
+  color: red
+  flags: None
+  protoId: StunRiffleHeatBolt
+
+- type: selectableAmmo
+  id: StunRiffleDisablerBolt
+  desc: Enslave them all!
+  icon:
+    sprite: _Europa/Icons/ammo_selectable.rsi
+    state: enslave
+    shader: unshaded
+  color: orange
+  flags: None
+  protoId: StunRiffleDisablerBolt
