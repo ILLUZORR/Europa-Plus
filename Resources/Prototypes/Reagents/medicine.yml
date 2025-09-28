@@ -334,6 +334,7 @@
               Brute: -3
               Burn: -3
 
+#Europe-start
 - type: reagent
   id: Doxarubixadone
   name: reagent-name-doxarubixadone
@@ -356,7 +357,11 @@
             scale: 1.6
           damage:
             types:
-             Cellular: -2
+             Cellular: -4
+             Blunt: 0.33
+             Slash: 0.33
+             Piercing: 0.34
+#Europe-end
 
 - type: reagent
   id: Dermaline
