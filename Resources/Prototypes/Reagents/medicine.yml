@@ -328,11 +328,13 @@
             min: 100.0
             max: 213.0
             scale: 1.6
+
+            #Europe-start
           damage:
             groups: # Goobstation - Cryo rebalance
-              Airloss: -3
-              Brute: -3
-              Burn: -3
+              Airloss: -10
+              Bloodloss: -10
+            #Europe-end
 
 
 - type: reagent
