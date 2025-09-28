@@ -331,7 +331,7 @@
 
             #Europe-start
           damage:
-            groups: # Goobstation - Cryo rebalance
+            types: # Goobstation - Cryo rebalance
               Airloss: -10
               Bloodloss: -10
             #Europe-end
@@ -1577,11 +1577,7 @@
   metabolisms:
     Medicine:
       effects:
-        - !type:ModifyBloodLevel # Goobstation - Cryo rebalance
-          conditions:
-          - !type:Temperature
-            max: 213.0
-          amount: 10
+      #Europe-start
         - !type:HealthChange
           conditions:
           - !type:Temperature
@@ -1591,11 +1587,16 @@
             max: 213.0
             scale: 1.6
           damage: # Goobstation - Cryo rebalance
-            groups:
-              Airloss: -10.0
-              Brute: -5.0
-              Burn: -5.0
-              Toxin: -5.0
+            types:
+              Poison: -2
+              Blunt: -1.33
+              Slash: -1.33
+              Piercing: -1.34
+              Heat: -1.25
+              Shock: -1.25
+              Cold: -1.25
+              Caustic: -1.25
+          #Europe-end
 
 - type: reagent
   id : Aloxadone
