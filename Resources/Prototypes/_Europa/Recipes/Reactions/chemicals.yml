@@ -36,8 +36,6 @@
   reactants:
     Cryoxadone:
       amount: 1
-    SalicylicAcid:
-      amount: 1
     Lipozine:
       amount: 1
   products:
