@@ -30,7 +30,7 @@
   id: Traumoxadone
   name: reagent-name-traumoxadone
   group: Medicine
-  desc: reagent-desc-taumoxadone
+  desc: reagent-desc-traumoxadone
   physicalDesc: reagent-physical-desc-soothing
   flavor: medicine
   color: "#880077"
