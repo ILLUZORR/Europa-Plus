@@ -315,7 +315,7 @@
   - !type:PlantAdjustHealth
     amount: 5
   - !type:PlantCryoxadone {}
-  worksOnTheDead: true # Goobstation
+  worksOnTheDead: false
   metabolisms:
     Medicine:
       effects:
@@ -328,13 +328,14 @@
             min: 100.0
             max: 213.0
             scale: 1.6
-
-            #Europe-start
           damage:
-            types: # Goobstation - Cryo rebalance
-              Airloss: -10
+            groups:
+              Airloss: -3
+              Brute: -4
+              Burn: -6
+              Toxin: -4
+            types:
               Bloodloss: -10
-            #Europe-end
 
 
 - type: reagent
