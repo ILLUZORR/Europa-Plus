@@ -34,7 +34,7 @@
   physicalDesc: reagent-physical-desc-soothing
   flavor: medicine
   color: "#880077"
-  worksOnTheDead: false
+  worksOnTheDead: true
   metabolisms:
     Medicine:
       effects:
