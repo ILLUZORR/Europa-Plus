@@ -316,7 +316,7 @@
   - !type:PlantAdjustHealth
     amount: 5
   - !type:PlantCryoxadone {}
-  worksOnTheDead: false
+  worksOnTheDead: true
   metabolisms:
     Medicine:
       effects:
@@ -345,7 +345,7 @@
   physicalDesc: reagent-physical-desc-bubbling
   flavor: medicine
   color: "#32cd32"
-  worksOnTheDead: false
+  worksOnTheDead: true
   metabolisms:
     Medicine:
       effects:
