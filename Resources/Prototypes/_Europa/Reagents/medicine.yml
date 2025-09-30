@@ -7,7 +7,7 @@
   flavor: medicine
   color: "#ffa861"
   worksOnTheDead: true
-  metabolism:
+  metabolisms:
     Medicine:
       effects:
       - !type:HealthChange
@@ -34,10 +34,10 @@
   physicalDesc: reagent-physical-desc-soothing
   flavor: medicine
   color: "#880077"
-  worksOnTheDead: true
-  metabolism:
+  worksOnTheDead: false
+  metabolisms:
     Medicine:
-      effect:
+      effects:
       - !type:HealthChange
         conditions:
         - !type:Temperature
@@ -48,6 +48,6 @@
           scale: 1.6
         damage:
           types:
-            Blunt: 2
-            Piercing: 2
-            Slash: 2
+            Blunt: -2
+            Piercing: -2
+            Slash: -2

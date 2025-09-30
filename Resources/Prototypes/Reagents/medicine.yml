@@ -301,6 +301,7 @@
         amount: -1.2
         time: 12
 
+#Europe-start
 - type: reagent
   id: Cryoxadone
   name: reagent-name-cryoxadone
@@ -330,14 +331,12 @@
             scale: 1.6
           damage:
             groups:
-              Airloss: -3
-              Brute: -4
-              Burn: -6
-              Toxin: -4
+              Airloss: -10
             types:
-              Bloodloss: -10
+              Bloodloss: -3
+#Europe-end
 
-
+#Europe-start
 - type: reagent
   id: Doxarubixadone
   name: reagent-name-doxarubixadone
@@ -346,7 +345,7 @@
   physicalDesc: reagent-physical-desc-bubbling
   flavor: medicine
   color: "#32cd32"
-  worksOnTheDead: true # Goobstation - Cryo rebalance
+  worksOnTheDead: false
   metabolisms:
     Medicine:
       effects:
@@ -358,15 +357,13 @@
             min: 100.0
             max: 213.0
             scale: 1.6
-
-          #Europe-start
           damage:
             types:
              Cellular: -4
              Blunt: 0.33
              Slash: 0.33
              Piercing: 0.34
-            #Europe-end
+#Europe-end
 
 - type: reagent
   id: Dermaline
@@ -1619,7 +1616,6 @@
           min: 100.0
           max: 213.0
           scale: 1.6
-
           #Europe-start
         damage: # Goobstation - Cryo rebalance
           types:
