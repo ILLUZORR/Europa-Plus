@@ -798,6 +798,13 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("TEXT")
                         .HasColumnName("admin_ooc_color");
 
+                    // Europa-Start
+                    b.Property<string>("GhostId")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("ghost_id");
+                    // Europa-End
+
                     b.PrimitiveCollection<string>("ConstructionFavorites")
                         .IsRequired()
                         .HasColumnType("TEXT")
