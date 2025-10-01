@@ -361,10 +361,14 @@
             min: 100.0
             max: 213.0
             scale: 1.6
+# Europa-Edit-Start
           damage:
             types:
-             Cellular: -2
-  evaporationSpeed: 0.3
+             Cellular: -4
+             Blunt: 0.33
+             Slash: 0.33
+             Piercing: 0.34
+# Europa-Edit-End
 
 - type: reagent
   id: Dermaline
@@ -1610,11 +1614,6 @@
   metabolisms:
     Medicine:
       effects:
-        - !type:ModifyBloodLevel # Goobstation - Cryo rebalance
-          conditions:
-          - !type:Temperature
-            max: 213.0
-          amount: 10
         - !type:HealthChange
           conditions:
           - !type:Temperature
@@ -1623,13 +1622,18 @@
             min: 100.0
             max: 213.0
             scale: 1.6
-          damage: # Goobstation - Cryo rebalance
-            groups:
-              Airloss: -10.0
-              Brute: -5.0
-              Burn: -5.0
-              Toxin: -5.0
-  evaporationSpeed: 0.3
+# Europa-Edit-Start
+          damage:
+            types:
+              Poison: -2
+              Blunt: -1.33
+              Slash: -1.33
+              Piercing: -1.34
+              Heat: -1.25
+              Shock: -1.25
+              Cold: -1.25
+              Caustic: -1.25
+# Europa-Edit-End
 
 - type: reagent
   id : Aloxadone
@@ -1643,6 +1647,11 @@
   metabolisms:
     Medicine:
       effects:
+#     - !type:ModifyBloodLevel # Goobstation - Cryo rebalance | Europa-Remove
+#       conditions:
+#     - !type:Temperature
+#         max: 213.0
+#         amount: 10
       - !type:HealthChange
         conditions:
         - !type:Temperature
@@ -1651,12 +1660,14 @@
           min: 100.0
           max: 213.0
           scale: 1.6
-        damage: # Goobstation - Cryo rebalance
+# Europa-Edit-Start
+        damage:
           types:
-            Heat: -10.0
-            Shock: -10.0
-            Caustic: -10.0
-  evaporationSpeed: 0.3
+            Cold: -4
+            Heat: -4
+            Shock: -4
+            Caustic: -1.5
+# Europa-Edit-End
 
 - type: reagent
   id : Mannitol # currently this is just a way to create psicodine
