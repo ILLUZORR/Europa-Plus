@@ -301,7 +301,7 @@
         amount: -1.2
         time: 12
 
-#Europe-start
+
 - type: reagent
   id: Cryoxadone
   name: reagent-name-cryoxadone
@@ -316,7 +316,7 @@
   - !type:PlantAdjustHealth
     amount: 5
   - !type:PlantCryoxadone {}
-  worksOnTheDead: true
+  worksOnTheDead: true # Goobstation
   metabolisms:
     Medicine:
       effects:
@@ -330,13 +330,11 @@
             max: 213.0
             scale: 1.6
           damage:
-            groups:
-              Airloss: -10
-            types:
-              Bloodloss: -3
-#Europe-end
+            groups: # Goobstation - Cryo rebalance
+              Airloss: -3
+              Brute: -3
+              Burn: -3
 
-#Europe-start
 - type: reagent
   id: Doxarubixadone
   name: reagent-name-doxarubixadone
@@ -345,7 +343,7 @@
   physicalDesc: reagent-physical-desc-bubbling
   flavor: medicine
   color: "#32cd32"
-  worksOnTheDead: true
+  worksOnTheDead: true # Goobstation - Cryo rebalance
   metabolisms:
     Medicine:
       effects:
@@ -357,6 +355,7 @@
             min: 100.0
             max: 213.0
             scale: 1.6
+#Europe-start
           damage:
             types:
              Cellular: -4
@@ -1575,7 +1574,7 @@
   metabolisms:
     Medicine:
       effects:
-      #Europe-start
+#Europa-Edit-Start
         - !type:HealthChange
           conditions:
           - !type:Temperature
@@ -1584,7 +1583,7 @@
             min: 100.0
             max: 213.0
             scale: 1.6
-          damage: # Goobstation - Cryo rebalance
+          damage:
             types:
               Poison: -2
               Blunt: -1.33
@@ -1594,7 +1593,7 @@
               Shock: -1.25
               Cold: -1.25
               Caustic: -1.25
-          #Europe-end
+#Europa-Edit-End
 
 - type: reagent
   id : Aloxadone
@@ -1616,14 +1615,14 @@
           min: 100.0
           max: 213.0
           scale: 1.6
-          #Europe-start
-        damage: # Goobstation - Cryo rebalance
+#Europa-Edit-Start
+        damage:
           types:
             Cold: -4
             Heat: -4
             Shock: -4
             Caustic: -1.5
-          #Europe-end
+#Europe-Edit-End
 
 - type: reagent
   id : Mannitol # currently this is just a way to create psicodine
