@@ -364,7 +364,6 @@
 # Europa-Edit-Start
           damage:
             types:
-
              Cellular: -4
              Blunt: 0.33
              Slash: 0.33
