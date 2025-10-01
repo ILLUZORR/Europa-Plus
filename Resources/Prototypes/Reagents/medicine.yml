@@ -301,7 +301,6 @@
         amount: -1.2
         time: 12
 
-
 - type: reagent
   id: Cryoxadone
   name: reagent-name-cryoxadone
@@ -1574,7 +1573,6 @@
   metabolisms:
     Medicine:
       effects:
-#Europa-Edit-Start
         - !type:HealthChange
           conditions:
           - !type:Temperature
@@ -1583,6 +1581,7 @@
             min: 100.0
             max: 213.0
             scale: 1.6
+#Europa-Edit-Start
           damage:
             types:
               Poison: -2
@@ -1607,6 +1606,11 @@
   metabolisms:
     Medicine:
       effects:
+#     - !type:ModifyBloodLevel # Goobstation - Cryo rebalance | Europa-Remove  
+#       conditions:  
+#     - !type:Temperature  
+#         max: 213.0  
+#         amount: 10  
       - !type:HealthChange
         conditions:
         - !type:Temperature

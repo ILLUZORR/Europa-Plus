@@ -106,17 +106,15 @@
   products:
     Cryoxadone: 3
 
-#Europe-start
 - type: reaction
   id: Doxarubixadone
   reactants:
     Cryoxadone:
       amount: 1
-    Phalanximine:
+    Phalanximine: #Europa-Edit
       amount: 1
   products:
     Doxarubixadone: 2
-#Europe-end
 
 - type: reaction
   id: Epinephrine
@@ -626,7 +624,7 @@
   products:
     Necrosol: 2
 
-#Europe-start
+#Europa-Edit-Start
 - type: reaction
   id: CryoAloeLepo #Will make Aloxadone
   impact: Medium
@@ -652,7 +650,7 @@
       amount: 1
   products:
       Aloxadone: 4
-#Europe-end
+#Europa-Edit-End
 
 - type: reaction
   id: Psicodine
