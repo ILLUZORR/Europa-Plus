@@ -355,14 +355,14 @@
             min: 100.0
             max: 213.0
             scale: 1.6
-#Europe-start
+#Europa-Edit-Start
           damage:
             types:
              Cellular: -4
              Blunt: 0.33
              Slash: 0.33
              Piercing: 0.34
-#Europe-end
+#Europa-Edit-End
 
 - type: reagent
   id: Dermaline
