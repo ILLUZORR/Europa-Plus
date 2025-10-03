@@ -3,6 +3,12 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Content.Europa.Shared", "EuropaModule\Content.Europa.Shared\Content.Europa.Shared.csproj", "{7F3E2C1B-1D4E-4F4F-9A5B-4B7DAEEDB37C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ontent.Europa.Server", "EuropaModule\Content.Europa.Server\Content.Europa.Server.csproj", "{C8A531DE-8F5F-47C4-9B0E-9E9F7D4A92AB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Content.Europa.Client", "EuropaModule\Content.Europa.Client\Content.Europa.Client.csproj", "{1A94C950-0F66-44C9-8FA4-9F6A81A5C731}"
+EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Content.Shared", "Content.Shared\Content.Shared.csproj", "{26AEEBB3-DDE7-443A-9F43-7BC7F4ACF6B5}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Content.Server", "Content.Server\Content.Server.csproj", "{B38DBBD0-04C2-4D1A-84E2-B3446F6ADF2A}"
@@ -143,6 +149,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content.Goobstation.Maths", "Content.Goobstation.Maths\Content.Goobstation.Maths.csproj", "{72B19814-37C5-44ED-AA22-C60065AF1450}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Content.ModuleManager", "Content.ModuleManager\Content.ModuleManager.csproj", "{13BE2E8F-0A7E-49CE-BA75-89A9CB80542A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Europa", "Europa", "{CA514EA7-0CB5-4957-82F0-3CAE1A096971}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -519,6 +527,30 @@ Global
 		{13BE2E8F-0A7E-49CE-BA75-89A9CB80542A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{13BE2E8F-0A7E-49CE-BA75-89A9CB80542A}.Tools|Any CPU.ActiveCfg = Debug|Any CPU
 		{13BE2E8F-0A7E-49CE-BA75-89A9CB80542A}.Tools|Any CPU.Build.0 = Debug|Any CPU
+		{1A94C950-0F66-44C9-8FA4-9F6A81A5C731}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A94C950-0F66-44C9-8FA4-9F6A81A5C731}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {1A94C950-0F66-44C9-8FA4-9F6A81A5C731}.DebugOpt|Any CPU.ActiveCfg = DebugOpt|Any CPU
+        {1A94C950-0F66-44C9-8FA4-9F6A81A5C731}.DebugOpt|Any CPU.Build.0 = DebugOpt|Any CPU
+        {1A94C950-0F66-44C9-8FA4-9F6A81A5C731}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {1A94C950-0F66-44C9-8FA4-9F6A81A5C731}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A94C950-0F66-44C9-8FA4-9F6A81A5C731}.Tools|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A94C950-0F66-44C9-8FA4-9F6A81A5C731}.Tools|Any CPU.Build.0 = Debug|Any CPU
+		{C8A531DE-8F5F-47C4-9B0E-9E9F7D4A92AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8A531DE-8F5F-47C4-9B0E-9E9F7D4A92AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {C8A531DE-8F5F-47C4-9B0E-9E9F7D4A92AB}.DebugOpt|Any CPU.ActiveCfg = DebugOpt|Any CPU
+        {C8A531DE-8F5F-47C4-9B0E-9E9F7D4A92AB}.DebugOpt|Any CPU.Build.0 = DebugOpt|Any CPU
+        {C8A531DE-8F5F-47C4-9B0E-9E9F7D4A92AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {C8A531DE-8F5F-47C4-9B0E-9E9F7D4A92AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8A531DE-8F5F-47C4-9B0E-9E9F7D4A92AB}.Tools|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8A531DE-8F5F-47C4-9B0E-9E9F7D4A92AB}.Tools|Any CPU.Build.0 = Debug|Any CPU
+		{7F3E2C1B-1D4E-4F4F-9A5B-4B7DAEEDB37C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F3E2C1B-1D4E-4F4F-9A5B-4B7DAEEDB37C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+        {7F3E2C1B-1D4E-4F4F-9A5B-4B7DAEEDB37C}.DebugOpt|Any CPU.ActiveCfg = DebugOpt|Any CPU
+        {7F3E2C1B-1D4E-4F4F-9A5B-4B7DAEEDB37C}.DebugOpt|Any CPU.Build.0 = DebugOpt|Any CPU
+        {7F3E2C1B-1D4E-4F4F-9A5B-4B7DAEEDB37C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+        {7F3E2C1B-1D4E-4F4F-9A5B-4B7DAEEDB37C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F3E2C1B-1D4E-4F4F-9A5B-4B7DAEEDB37C}.Tools|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F3E2C1B-1D4E-4F4F-9A5B-4B7DAEEDB37C}.Tools|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -558,6 +590,9 @@ Global
 		{0844F01A-BCC6-417A-8CC4-08C9B7395445} = {14FCF095-169A-4893-BC75-21FE9093C1FF}
 		{E575399B-774D-4DA0-950C-A78F4C7B14D7} = {14FCF095-169A-4893-BC75-21FE9093C1FF}
 		{72B19814-37C5-44ED-AA22-C60065AF1450} = {14FCF095-169A-4893-BC75-21FE9093C1FF}
+		{1A94C950-0F66-44C9-8FA4-9F6A81A5C731} = {CA514EA7-0CB5-4957-82F0-3CAE1A096971}
+		{C8A531DE-8F5F-47C4-9B0E-9E9F7D4A92AB} = {CA514EA7-0CB5-4957-82F0-3CAE1A096971}
+		{7F3E2C1B-1D4E-4F4F-9A5B-4B7DAEEDB37C} = {CA514EA7-0CB5-4957-82F0-3CAE1A096971}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AA37ED9F-F8D6-468E-A101-658AD605B09A}
