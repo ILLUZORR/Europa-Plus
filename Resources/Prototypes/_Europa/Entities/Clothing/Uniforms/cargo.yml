@@ -1,0 +1,10 @@
+- type: entity
+  parent: [ ClothingUniformBase, BaseMajorContraband ]
+  id: CargoUniformHiveWorld
+  name: cargo uniform
+  description: Standard hive world cargo uniform.
+  components:
+  - type: Sprite
+    sprite: _Europa/Clothing/Uniforms/Jumpsuit/cargo.rsi
+  - type: Clothing
+    sprite: _Europa/Clothing/Uniforms/Jumpsuit/cargo.rsi

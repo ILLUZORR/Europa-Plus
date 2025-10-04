@@ -1,0 +1,24 @@
+- type: entity
+  parent: BaseStructure
+  id: SoulbreakerGramophone
+  name: soulbreaker gramophone
+  description: This wonderful melody inspires new achievements.
+  components:
+  - type: Sprite
+    noRot: false
+    sprite: _Europa/Objects/Devices/soulbreaker_gramophone.rsi
+    layers:
+    - state: "on"
+      map: [ "enum.JukeboxVisualLayers.Base" ]
+  - type: Jukebox
+    volume: 75.0
+    minVolume: 0
+    maxVolume: 200.0
+    onState: on
+    selectedSongId: Soulbreakers
+  - type: Item
+    sprite: _Europa/Objects/Devices/soulbreaker_gramophone.rsi
+    size: Large
+  - type: Appearance
+  - type: ItemToggle
+  - type: Anchorable
