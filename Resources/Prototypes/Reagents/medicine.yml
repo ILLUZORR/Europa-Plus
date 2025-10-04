@@ -325,20 +325,20 @@
   metabolisms:
     Medicine:
       effects:
-        - !type:HealthChange
-          conditions:
-          - !type:Temperature
-            # this is a little arbitrary but they gotta be pretty cold
-            max: 213.0
-          scaleByTemperature: # Shitmed Change
-            min: 100.0
-            max: 213.0
-            scale: 1.6
-          damage:
-            groups: # Goobstation - Cryo rebalance
-              Airloss: -3
-              Brute: -3
-              Burn: -3
+      - !type:HealthChange
+        conditions:
+        - !type:Temperature
+          # this is a little arbitrary but they gotta be pretty cold
+          max: 213.0
+        scaleByTemperature: # Shitmed Change
+          min: 100.0
+          max: 213.0
+          scale: 1.6
+        damage:
+          groups: # Goobstation - Cryo rebalance | Europa-Edit-Start
+            Airloss: -3
+          types:
+            Bloodloss: -4
   evaporationSpeed: 0.3
 
 - type: reagent
@@ -353,17 +353,20 @@
   metabolisms:
     Medicine:
       effects:
-        - !type:HealthChange
-          conditions:
-          - !type:Temperature
-            max: 213.0
-          scaleByTemperature: # Shitmed Change
-            min: 100.0
-            max: 213.0
-            scale: 1.6
-          damage:
-            types:
-             Cellular: -2
+      - !type:HealthChange
+        conditions:
+        - !type:Temperature
+          max: 213.0
+        scaleByTemperature: # Shitmed Change
+          min: 100.0
+          max: 213.0
+          scale: 1.6
+        damage: # Europa-Edit-Start
+          types:
+            Cellular: -4
+            Blunt: 0.33
+            Slash: 0.33
+            Piercing: 0.34 # Europa-Edit-End
   evaporationSpeed: 0.3
 
 - type: reagent
@@ -545,7 +548,7 @@
         amount: -5
       - !type:HealthChange
         conditions:
-          # they gotta be in crit first
+        # they gotta be in crit first
         - !type:MobStateCondition
           mobstate: Critical
         - !type:ReagentThreshold
@@ -643,7 +646,7 @@
           min: 30
         damage:
           types:
-           Heat: 2
+            Heat: 2
       - !type:Jitter
         conditions:
         - !type:ReagentThreshold
@@ -685,7 +688,7 @@
       effects:
       - !type:HealthChange
         conditions:
-          # they gotta be in crit first
+        # they gotta be in crit first
         - !type:MobStateCondition
           mobstate: Critical
         damage:
@@ -832,12 +835,12 @@
   flavor: medicine
   color: "#c8ff75"
   plantMetabolism:
-    - !type:PlantAdjustToxins
-      amount: 6
-    - !type:PlantPhalanximine
-      conditions:
-      - !type:ReagentThreshold
-        min: 4
+  - !type:PlantAdjustToxins
+    amount: 6
+  - !type:PlantPhalanximine
+    conditions:
+    - !type:ReagentThreshold
+      min: 4
   metabolisms:
     Medicine:
       metabolismRate: 0.1
@@ -922,10 +925,10 @@
   metabolisms:
     Medicine:
       effects:
-        - !type:CureZombieInfection
-          conditions:
-            - !type:ReagentThreshold
-              min: 10
+      - !type:CureZombieInfection
+        conditions:
+        - !type:ReagentThreshold
+          min: 10
   evaporationSpeed: 0.3
 
 - type: reagent
@@ -939,11 +942,11 @@
   metabolisms:
     Medicine:
       effects:
-        - !type:CureZombieInfection
-          innoculate: true
-          conditions:
-            - !type:ReagentThreshold
-              min: 5
+      - !type:CureZombieInfection
+        innoculate: true
+        conditions:
+        - !type:ReagentThreshold
+          min: 5
   evaporationSpeed: 0.3
 
 - type: reagent
@@ -972,10 +975,10 @@
   metabolisms:
     Drink:
       effects:
-        - !type:SatiateThirst
-          factor: 6
-        - !type:ModifyBloodLevel
-          amount: 12 # Goobstation - buffed by two times due to shitmed changes
+      - !type:SatiateThirst
+        factor: 6
+      - !type:ModifyBloodLevel
+        amount: 12 # Goobstation - buffed by two times due to shitmed changes
   evaporationSpeed: 0.3
 
 - type: reagent
@@ -1458,15 +1461,15 @@
       methods: [ Touch ]
       effects:
       - !type:ExtinguishReaction
-#    Acidic:  # Goobstation - Removing holy water damage on touch pending rework.
-#      methods: [ Touch ]
-#      effects:
-#      - !type:HealthChange
-#        scaleByQuantity: true
-#        ignoreResistances: false
-#        damage:
-#          types:
-#            Holy: 0.7
+        #    Acidic:  # Goobstation - Removing holy water damage on touch pending rework.
+        #      methods: [ Touch ]
+        #      effects:
+        #      - !type:HealthChange
+        #        scaleByQuantity: true
+        #        ignoreResistances: false
+        #        damage:
+        #          types:
+      #            Holy: 0.7
   plantMetabolism:
   - !type:PlantAdjustWater
     amount: 1
@@ -1582,14 +1585,14 @@
   metabolisms:
     Medicine:
       effects:
-        - !type:ReduceRotting
-          seconds: 20
-          conditions:
-          #Patient must be dead and in a cryo tube (or something cold)
-          - !type:Temperature
-            max: 150.0
-          - !type:MobStateCondition
-            mobstate: Dead
+      - !type:ReduceRotting
+        seconds: 20
+        conditions:
+        #Patient must be dead and in a cryo tube (or something cold)
+        - !type:Temperature
+          max: 150.0
+        - !type:MobStateCondition
+          mobstate: Dead
   evaporationSpeed: 0.3
 
 - type: reagent
@@ -1610,25 +1613,28 @@
   metabolisms:
     Medicine:
       effects:
-        - !type:ModifyBloodLevel # Goobstation - Cryo rebalance
-          conditions:
-          - !type:Temperature
-            max: 213.0
-          amount: 10
-        - !type:HealthChange
-          conditions:
-          - !type:Temperature
-            max: 213.0
-          scaleByTemperature: # Shitmed Change
-            min: 100.0
-            max: 213.0
-            scale: 1.6
-          damage: # Goobstation - Cryo rebalance
-            groups:
-              Airloss: -10.0
-              Brute: -5.0
-              Burn: -5.0
-              Toxin: -5.0
+      #- !type:ModifyBloodLevel # Goobstation - Cryo rebalance | Europa-Delete
+      #  conditions:
+      #  - !type:Temperature
+      #    max: 213.0
+      #  amount: 10
+      - !type:HealthChange
+        conditions:
+        - !type:Temperature
+          max: 213.0
+        scaleByTemperature: # Shitmed Change
+          min: 100.0
+          max: 213.0
+          scale: 1.6
+        damage: # Goobstation - Cryo rebalance | Europa-Edit-Start
+          types:
+            Poison: -2
+            Blunt: -1.33
+            Slash: -1.33
+            Piercing: -1.34
+            Burn: -2.25
+            Shock: -2.25
+            Cold: -2.25 # Europa-Edit-End
   evaporationSpeed: 0.3
 
 - type: reagent
@@ -1651,11 +1657,12 @@
           min: 100.0
           max: 213.0
           scale: 1.6
-        damage: # Goobstation - Cryo rebalance
+        damage: # Goobstation - Cryo rebalance | Europa-Edit-Start
           types:
-            Heat: -10.0
-            Shock: -10.0
-            Caustic: -10.0
+            Cold: -4.0
+            Heat: -4.0
+            Shock: -4.0
+            Caustic: -1.5 # Europa-Edit-End
   evaporationSpeed: 0.3
 
 - type: reagent
@@ -1808,3 +1815,4 @@
         reagent: MindbreakerToxin
         amount: -3.0
   evaporationSpeed: 0.3
+
